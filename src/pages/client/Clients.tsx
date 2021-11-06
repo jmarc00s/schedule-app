@@ -2,9 +2,11 @@ import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
+import ProgressBar from '../../components/ProgressBar';
 import { useAxios } from '../../hooks/useAxios';
 
 import { ClientModel } from '../../models/client.model';
+import ClientTable from './components/ClientTable';
 
 const Clients = () => {
   const [clients, setClients] = React.useState<ClientModel[]>([]);
@@ -34,13 +36,11 @@ const Clients = () => {
         title="Clientes"
         btnText="Adicionar"
         handleBtnClick={() => navigate('/clients/add')}
+        showProgress={loading}
       />
-      {loading && <p>Carregando...</p>}
-      {clients?.map(({ id, name }) => (
-        <p key={id}>
-          {id} - {name}
-        </p>
-      ))}
+      <div className="mt-5">
+        <ClientTable clients={clients} />
+      </div>
     </section>
   );
 };

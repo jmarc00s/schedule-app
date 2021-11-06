@@ -4,10 +4,10 @@ import Header from './components/Header';
 
 function App() {
   return (
-    <main className="w-screen h-screen">
+    <main className="w-screen h-screen bg-gray-200">
       <BrowserRouter>
         <Header />
-        <section className="max-w-5xl mx-auto pt-5">
+        <section className="max-w-6xl mx-auto pt-5 px-2 bg-white">
           <Router />
         </section>
       </BrowserRouter>
