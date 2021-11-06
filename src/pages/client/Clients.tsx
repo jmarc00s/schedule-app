@@ -10,7 +10,7 @@ import ClientTable from './components/ClientTable';
 
 const Clients = () => {
   const [clients, setClients] = React.useState<ClientModel[]>([]);
-  const { data, loading, request } = useAxios<ClientModel[]>();
+  const { loading, request } = useAxios<ClientModel[]>();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -20,15 +20,15 @@ const Clients = () => {
         method: 'GET',
       };
 
-      await request(requestConfig);
+      const clients = await request(requestConfig);
+
+      if (clients) {
+        setClients(clients);
+      }
     }
 
-    if (!data) {
-      getClients();
-    } else {
-      setClients(data);
-    }
-  }, [data, request]);
+    getClients();
+  }, []);
 
   return (
     <section>

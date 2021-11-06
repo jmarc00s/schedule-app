@@ -11,7 +11,7 @@ const ClientForm = () => {
     undefined
   );
 
-  const { request, data, loading } = useAxios<ClientModel>();
+  const { request, loading } = useAxios<ClientModel>();
 
   React.useEffect(() => {
     async function getClient(id: number) {
@@ -20,15 +20,15 @@ const ClientForm = () => {
         method: 'GET',
       };
 
-      await request(requestConfig);
+      const data = await request(requestConfig);
+
+      if (data) {
+        setClient(data);
+      }
     }
 
     if (params.id) {
       getClient(Number(params.id));
-    }
-
-    if (data) {
-      setClient(data);
     }
   }, []);
 
@@ -40,6 +40,7 @@ const ClientForm = () => {
         handleBtnClick={() => console.log('Salvando cliente')}
         showProgress={loading}
       />
+      <div>{client?.name}</div>
     </section>
   );
 };

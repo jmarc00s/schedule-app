@@ -15,6 +15,7 @@ export function useAxios<T>() {
       setLoading(true);
       const { data } = await axios(options);
       setData(data);
+      return data;
     } catch (error) {
       console.error(error);
     } finally {
