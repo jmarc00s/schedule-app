@@ -10,7 +10,7 @@ import ClientTable from './components/ClientTable';
 
 const Clients = () => {
   const [clients, setClients] = React.useState<ClientModel[]>([]);
-  const { loading, request } = useAxios<ClientModel[]>();
+  const { loading, request, error } = useAxios<ClientModel[]>();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -30,6 +30,23 @@ const Clients = () => {
     getClients();
   }, []);
 
+  async function handleRemove(id: number) {
+    const confirm = window.confirm('Deseja realmente excluir esse registro?');
+
+    if (confirm) {
+      var requestConfig: AxiosRequestConfig = {
+        url: `/clients/${id}`,
+        method: 'DELETE',
+      };
+
+      await request(requestConfig);
+
+      if (!error) {
+        setClients(clients.filter((client) => client.id !== id));
+      }
+    }
+  }
+
   return (
     <section>
       <PageHeader
@@ -39,7 +56,7 @@ const Clients = () => {
         showProgress={loading}
       />
       <div className="mt-5">
-        <ClientTable clients={clients} />
+        <ClientTable clients={clients} handleRemoveClick={handleRemove} />
       </div>
     </section>
   );

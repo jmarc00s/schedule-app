@@ -4,7 +4,7 @@ import Header from './components/Header';
 
 function App() {
   return (
-    <main className="w-screen h-screen bg-gray-200">
+    <main className="w-screen h-screen">
       <BrowserRouter>
         <Header />
         <section className="max-w-6xl mx-auto pt-5 px-2 bg-white">

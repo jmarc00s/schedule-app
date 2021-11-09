@@ -7,24 +7,14 @@ import { ClientModel } from '../../../models/client.model';
 
 interface ClientTableProps {
   clients: ClientModel[];
+  handleRemoveClick: (id: number) => void;
 }
 
-const ClientTable = ({ clients }: ClientTableProps) => {
+const ClientTable = ({ clients, handleRemoveClick }: ClientTableProps) => {
   const navigate = useNavigate();
-
-  const { request } = useAxios();
 
   function handleEditClick(id: number) {
     navigate(`/clients/${id}/edit`);
-  }
-
-  async function handleRemoveClick(id: number) {
-    var requestConfig: AxiosRequestConfig = {
-      url: `/clients/${id}`,
-      method: 'DELETE',
-    };
-
-    await request(requestConfig);
   }
 
   return (
@@ -45,7 +35,7 @@ const ClientTable = ({ clients }: ClientTableProps) => {
               <Button
                 label="Editar"
                 handleClick={() => handleEditClick(id)}
-                color="Green"
+                color="Indigo"
               />
               <Button
                 label="Remover"
