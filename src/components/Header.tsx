@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -12,9 +12,9 @@ const Header = () => {
       <nav>
         <ul className="flex">
           <li>
-            <Link className="hover:bg-indigo-800 p-2 rounded" to="/clients">
+            <NavLink className="hover:bg-indigo-800 p-2 rounded" to="/clients">
               Clientes
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>
