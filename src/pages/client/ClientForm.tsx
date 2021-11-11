@@ -12,9 +12,10 @@ const ClientForm = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [client, setClient] = React.useState<ClientModel | undefined>(undefined);
+  const { request, loading } = useAxios<ClientModel>();
+
   const [name, setName] = React.useState<string>('');
   const [address, setAddress] = React.useState<string>('');
-  const { request, loading } = useAxios<ClientModel>();
 
   React.useEffect(() => {
     async function getClient(id: number) {
@@ -61,19 +62,17 @@ const ClientForm = () => {
       address,
     };
 
-    console.log(client);
+    const newClientRequest: AxiosRequestConfig = {
+      url: '/clients',
+      method: 'POST',
+      data: client,
+    };
 
-    // const newClientRequest: AxiosRequestConfig = {
-    //   url: '/clients',
-    //   method: 'POST',
-    //   data: client,
-    // };
+    const data = await request(newClientRequest);
 
-    // const data = await request(newClientRequest);
-
-    // if (data) {
-    //   navigate('/clients');
-    // }
+    if (data) {
+      navigate('/clients');
+    }
   }
 
   async function _editClient() {

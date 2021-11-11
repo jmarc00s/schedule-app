@@ -19,10 +19,12 @@ const ClientTable = ({ clients, handleRemoveClick }: ClientTableProps) => {
   return (
     <table className="w-full">
       <thead>
-        <th>Id</th>
-        <th>Nome</th>
-        <th>Endereço</th>
-        <th>Ações</th>
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>Endereço</th>
+          <th>Ações</th>
+        </tr>
       </thead>
       <tbody>
         {clients?.map(({ id, name, address }) => (
