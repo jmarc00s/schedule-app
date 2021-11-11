@@ -2,7 +2,6 @@ import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
-import ProgressBar from '../../components/ProgressBar';
 import { useAxios } from '../../hooks/useAxios';
 
 import { ClientModel } from '../../models/client.model';

@@ -1,16 +1,19 @@
-import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import PageHeader from '../../components/PageHeader';
 import { useAxios } from '../../hooks/useAxios';
+import { AxiosRequestConfig } from 'axios';
+
+import PageHeader from '../../components/PageHeader';
+import Input from '../../components/Input';
+
 import { ClientModel } from '../../models/client.model';
 
 const ClientForm = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [client, setClient] = React.useState<ClientModel | undefined>(undefined);
-  const [name, setName] = React.useState<string>();
-  const [address, setAddress] = React.useState<string>();
+  const [name, setName] = React.useState<string>('');
+  const [address, setAddress] = React.useState<string>('');
   const { request, loading } = useAxios<ClientModel>();
 
   React.useEffect(() => {
@@ -58,17 +61,19 @@ const ClientForm = () => {
       address,
     };
 
-    const newClientRequest: AxiosRequestConfig = {
-      url: '/clients',
-      method: 'POST',
-      data: client,
-    };
+    console.log(client);
 
-    const data = await request(newClientRequest);
+    // const newClientRequest: AxiosRequestConfig = {
+    //   url: '/clients',
+    //   method: 'POST',
+    //   data: client,
+    // };
 
-    if (data) {
-      navigate('/clients');
-    }
+    // const data = await request(newClientRequest);
+
+    // if (data) {
+    //   navigate('/clients');
+    // }
   }
 
   async function _editClient() {
@@ -101,17 +106,13 @@ const ClientForm = () => {
         disableBtn={formIsInvalid()}
       />
       <form className="flex flex-col items-center justify-center gap-3 mt-2">
-        <input
-          className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
-          placeholder="Nome"
-          type="text"
-          name="name"
-          id="name"
-          onChange={({ target }) => setName(target.value)}
+        <Input
+          placeHolder="Nome"
           value={name}
-          autoComplete="off"
-          maxLength={60}
+          setValue={(value) => setName(value)}
           disabled={loading}
+          name="nome"
+          id="nome"
         />
         <input
           className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"

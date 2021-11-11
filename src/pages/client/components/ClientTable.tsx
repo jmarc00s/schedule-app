@@ -2,7 +2,6 @@ import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import Button from '../../../components/Button';
-import { useAxios } from '../../../hooks/useAxios';
 import { ClientModel } from '../../../models/client.model';
 
 interface ClientTableProps {
