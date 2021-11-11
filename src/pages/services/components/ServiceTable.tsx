@@ -29,7 +29,7 @@ const ServiceTable = ({ services, handleRemove }: ServiceTableProps) => {
           <tr key={id}>
             <td className="text-center">{id}</td>
             <td className="text-center">{description}</td>
-            <td className="text-center">
+            <td className="flex gap-2 items-center justify-center">
               <Button
                 label="Editar"
                 handleClick={() => handleEditClick(id)}
