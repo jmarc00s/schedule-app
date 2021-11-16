@@ -1,19 +1,44 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
+import { useAxios } from '../../hooks/useAxios';
+import { ScheduleModel } from '../../models/schedule.model';
+import SchedulesTable from './components/SchedulesTable';
 
 const Schedules = () => {
+  const [schedules, setSchedules] = React.useState<ScheduleModel[]>([]);
+  const { request, loading } = useAxios<ScheduleModel[]>();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    async function getSchedules() {
+      const data = await request({ url: '/schedules', method: 'GET' });
+
+      if (data) {
+        setSchedules(data);
+      }
+    }
+
+    getSchedules();
+  }, []);
+
   function handleAddScheduleClick() {
-    console.log('clicou');
+    navigate('/schedules/add');
   }
 
   return (
     <section>
       <PageHeader
         title="Horários"
-        showProgress={false}
+        showProgress={loading}
         btnText="Adicionar horário"
         handleBtnClick={handleAddScheduleClick}
       />
+      {schedules.length ? (
+        <SchedulesTable schedules={schedules} />
+      ) : (
+        <p className="text-center mt-1">Não existem horários registrados.</p>
+      )}
     </section>
   );
 };

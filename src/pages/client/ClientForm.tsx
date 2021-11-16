@@ -34,7 +34,7 @@ const ClientForm = () => {
     if (params.id) {
       getClient(Number(params.id));
     }
-  }, []);
+  });
 
   function formIsInvalid(): boolean {
     const formValid = !!(name?.length && address?.length);

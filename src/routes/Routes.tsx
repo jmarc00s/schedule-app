@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/Home';
+import ScheduleForm from '../pages/schedule/ScheduleForm';
 import Schedules from '../pages/schedule/Schedules';
 import ServiceForm from '../pages/services/ServiceForm';
 import Services from '../pages/services/Services';
@@ -43,6 +44,24 @@ const Router = () => {
         element={
           <React.Suspense fallback={<>...</>}>
             <Schedules />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="/schedules/add"
+        element={
+          <React.Suspense fallback={<>...</>}>
+            <ScheduleForm />
+          </React.Suspense>
+        }
+      />
+
+      <Route
+        path="/schedules/:id/edit"
+        element={
+          <React.Suspense fallback={<>...</>}>
+            <ScheduleForm />
           </React.Suspense>
         }
       />
