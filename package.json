@@ -24,6 +24,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "backend:serve": "json-server db/db.json --watch -p 4000",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

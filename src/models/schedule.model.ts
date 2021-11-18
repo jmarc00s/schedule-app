@@ -1,12 +1,13 @@
 import { EStatusSchedule } from '../enum/status-schedule.enum';
+import { BaseModel } from './base.model';
 import { ClientModel } from './client.model';
 import { ServiceModel } from './service.model';
 
-export interface ScheduleModel {
-  id: number;
+export interface ScheduleModel extends BaseModel {
   clientId: number;
   serviceId: number;
-  date: Date;
+  date: string;
+  time: string;
   note: string;
   status: EStatusSchedule;
 

@@ -5,6 +5,7 @@ interface InputProps {
   setValue: (value: string) => void;
   placeHolder: string;
   disabled: boolean;
+  label?: string;
   name?: string;
   id?: string;
   maxLength?: number;
@@ -18,20 +19,24 @@ const Input = ({
   maxLength,
   name,
   disabled,
+  label,
 }: InputProps) => {
   return (
-    <input
-      className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
-      placeholder={placeHolder}
-      type="text"
-      name={name}
-      id={id}
-      onChange={({ target }) => setValue(target.value)}
-      value={value}
-      autoComplete="off"
-      maxLength={maxLength ? maxLength : 1000}
-      disabled={disabled}
-    />
+    <>
+      {label?.length && <label htmlFor="id">{label}</label>}
+      <input
+        className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
+        placeholder={placeHolder}
+        type="text"
+        name={name}
+        id={id}
+        onChange={({ target }) => setValue(target.value)}
+        value={value}
+        autoComplete="off"
+        maxLength={maxLength ? maxLength : 1000}
+        disabled={disabled}
+      />
+    </>
   );
 };
 

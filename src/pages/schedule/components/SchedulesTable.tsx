@@ -21,11 +21,11 @@ const SchedulesTable = ({ schedules }: SchedulesTableProps) => {
       <tbody>
         {schedules.map((schedule) => (
           <tr key={schedule.id}>
-            <td>{schedule.id}</td>
-            <td>{schedule.client?.name}</td>
-            <td>{schedule.service?.description}</td>
-            <td>{schedule.date}</td>
-            <td>{schedule.status}</td>
+            <td className="text-center">{schedule.id}</td>
+            <td className="text-center">{schedule.client?.name}</td>
+            <td className="text-center">{schedule.service?.description}</td>
+            <td className="text-center">{schedule.date}</td>
+            <td className="text-center">{schedule.status}</td>
             <td></td>
           </tr>
         ))}
