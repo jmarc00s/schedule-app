@@ -22,8 +22,9 @@ const Select = ({
         name="select"
         className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
         onChange={({ target }) => handleSelectChange(Number(target.value))}
+        defaultValue={'default'}
       >
-        <option selected disabled value="">
+        <option disabled value="default">
           {placeholder}
         </option>
 
