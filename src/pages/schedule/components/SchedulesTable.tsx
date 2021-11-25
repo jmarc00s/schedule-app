@@ -7,20 +7,17 @@ import ScheduleTag from './ScheduleTag';
 
 interface SchedulesTableProps {
   schedules: ScheduleModel[];
+  setSchedules: (schedules: ScheduleModel[]) => void;
 }
 
-const SchedulesTable = ({ schedules }: SchedulesTableProps) => {
-  const { loading, request, error } = useAxios<ScheduleModel>();
+const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
+  const { request, error } = useAxios<ScheduleModel>();
 
-  function confirmSchedule(scheduleId: number): void {
-    const schedule = schedules.find(({ id }) => scheduleId === id);
-
+  function confirmSchedule(schedule: ScheduleModel): void {
     editScheduleStatus(schedule, EStatusSchedule.CONFIRMED);
   }
 
-  function cancelSchedule(scheduleId: number): void {
-    const schedule = schedules.find(({ id }) => scheduleId === id);
-
+  function cancelSchedule(schedule: ScheduleModel): void {
     editScheduleStatus(schedule, EStatusSchedule.CANCELED);
   }
 
@@ -37,11 +34,20 @@ const SchedulesTable = ({ schedules }: SchedulesTableProps) => {
       status,
     } as ScheduleModel;
 
-    await request({
+    const response = await request({
       url: `/schedules/${schedule?.id}`,
       method: 'PUT',
       data,
     });
+
+    if (!error) {
+      const newSchedules = [
+        ...schedules.filter(({ id }) => id !== response?.id),
+        response as ScheduleModel,
+      ];
+
+      setSchedules(newSchedules.sort((a, b) => a.id - b.id));
+    }
   }
 
   return (
@@ -75,7 +81,7 @@ const SchedulesTable = ({ schedules }: SchedulesTableProps) => {
                   label="Confirmar"
                   color="Green"
                   handleClick={() => {
-                    confirmSchedule(schedule.id);
+                    confirmSchedule(schedule);
                   }}
                 />
               </div>
@@ -85,7 +91,7 @@ const SchedulesTable = ({ schedules }: SchedulesTableProps) => {
                 label="Cancelar"
                 color="Red"
                 handleClick={() => {
-                  cancelSchedule(schedule.id);
+                  cancelSchedule(schedule);
                 }}
               />
             </td>

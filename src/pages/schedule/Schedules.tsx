@@ -35,7 +35,10 @@ const Schedules = () => {
         handleBtnClick={handleAddScheduleClick}
       />
       {schedules.length ? (
-        <SchedulesTable schedules={schedules} />
+        <SchedulesTable
+          schedules={schedules}
+          setSchedules={(schedules) => setSchedules(schedules)}
+        />
       ) : (
         <p className="text-center mt-1">Não existem horários registrados.</p>
       )}

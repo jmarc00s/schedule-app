@@ -10,14 +10,14 @@ const ScheduleTag = ({ status }: ScheduleTagProps) => {
   const [title, setTitle] = React.useState<string>('');
 
   const colorClasses = {
-    'bg-green-500': status === EStatusSchedule.CONFIRMED,
-    'bg-blue-500': status === EStatusSchedule.PENDING,
-    'bg-red-500': status === EStatusSchedule.CANCELED,
+    'bg-green-300 text-green-900': status === EStatusSchedule.CONFIRMED,
+    'bg-blue-300 text-blue-900': status === EStatusSchedule.PENDING,
+    'bg-red-300 text-red-900': status === EStatusSchedule.CANCELED,
   };
 
   React.useEffect(() => {
     setTitle(defineTitle(status));
-  }, []);
+  }, [status]);
 
   function defineTitle(status: EStatusSchedule): string {
     switch (status) {
@@ -33,7 +33,12 @@ const ScheduleTag = ({ status }: ScheduleTagProps) => {
   }
 
   return (
-    <span className={classNames(['p-1 rounded-md text-white', colorClasses])}>
+    <span
+      className={classNames([
+        'py-1 px-2 rounded-xl text-xs font-semibold uppercase',
+        colorClasses,
+      ])}
+    >
       {title}
     </span>
   );

@@ -17,7 +17,12 @@ interface ScheduleFormModel {
 }
 
 const ScheduleForm = () => {
-  const [form, setForm] = React.useState<ScheduleFormModel | undefined>();
+  const [form, setForm] = React.useState<ScheduleFormModel | undefined>({
+    date: new Date().toLocaleDateString(),
+    time: '',
+    client: undefined,
+    service: undefined,
+  });
   const [clients, setClients] = React.useState<ClientModel[]>([]);
   const [services, setServices] = React.useState<ServiceModel[]>([]);
   const { request: requestClients, loading: loadingClients } = useAxios<ClientModel[]>();
@@ -57,7 +62,7 @@ const ScheduleForm = () => {
     await request({ url: '/schedules', method: 'POST', data: schedule });
 
     if (!error) {
-      navigate('/schedule');
+      navigate('/schedules');
     }
   }
 
