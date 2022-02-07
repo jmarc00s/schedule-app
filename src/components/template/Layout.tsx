@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
+import Content from './Content';
 import Header from './Header';
 import Sidebar from './sidebar/Sidebar';
 
@@ -13,7 +14,7 @@ const Layout = ({ children, pageTitle }: LayoutProps) => {
       <Sidebar />
       <section className="flex flex-col w-screen h-screen">
         <Header />
-        <div className="pt-5 px-5 bg-gray-100 ">{children}</div>
+        <Content>{children}</Content>
       </section>
     </section>
   );
