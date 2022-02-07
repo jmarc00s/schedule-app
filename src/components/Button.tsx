@@ -28,7 +28,7 @@ const Button = ({ label, handleClick, color, disabled }: ButtonProps) => {
     <button
       disabled={disabled}
       className={classNames(
-        'p-2 px-4 rounded',
+        'py-2 px-6 rounded',
         disabled ? disabledClasses : [`text-white`, colorClasses]
       )}
       onClick={handleClick}

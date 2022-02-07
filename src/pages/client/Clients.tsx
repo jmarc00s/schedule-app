@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
+import Layout from '../../components/template/Layout';
 import { useAxios } from '../../hooks/useAxios';
 
 import { ClientModel } from '../../models/client.model';
@@ -47,7 +48,7 @@ const Clients = () => {
   }
 
   return (
-    <section>
+    <Layout>
       <PageHeader
         title="Clientes"
         btnText="Adicionar"
@@ -57,7 +58,7 @@ const Clients = () => {
       <div className="mt-5">
         <ClientTable clients={clients} handleRemoveClick={handleRemove} />
       </div>
-    </section>
+    </Layout>
   );
 };
 

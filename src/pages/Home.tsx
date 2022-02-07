@@ -1,11 +1,12 @@
 import React from 'react';
 import Card from '../components/Card';
+import Layout from '../components/template/Layout';
 import { useAxios } from '../hooks/useAxios';
 import { ScheduleModel } from '../models/schedule.model';
 
 const Home = () => {
   const [schedules, setSchedules] = React.useState<ScheduleModel[]>([]);
-  const { request, loading } = useAxios<ScheduleModel[]>();
+  const { request } = useAxios<ScheduleModel[]>();
 
   React.useEffect(() => {
     async function getSchedules() {
@@ -20,7 +21,7 @@ const Home = () => {
   }, []);
 
   return (
-    <section className="flex flex-col">
+    <Layout>
       <div>
         <Card title="Próximos horários">
           <ul>
@@ -33,7 +34,7 @@ const Home = () => {
           </ul>
         </Card>
       </div>
-    </section>
+    </Layout>
   );
 };
 
