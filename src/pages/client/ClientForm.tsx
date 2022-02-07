@@ -7,6 +7,7 @@ import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 
 import { ClientModel } from '../../models/client.model';
+import Layout from '../../components/template/Layout';
 
 const ClientForm = () => {
   const params = useParams();
@@ -96,7 +97,7 @@ const ClientForm = () => {
   }
 
   return (
-    <section>
+    <Layout>
       <PageHeader
         title={params.id ? 'Editar cliente' : 'Adicionar cliente'}
         btnText="Salvar"
@@ -126,7 +127,7 @@ const ClientForm = () => {
           disabled={loading}
         />
       </form>
-    </section>
+    </Layout>
   );
 };
 

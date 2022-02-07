@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Select from '../../components/Select';
+import Layout from '../../components/template/Layout';
 import { EStatusSchedule } from '../../enum/status-schedule.enum';
 import { useAxios } from '../../hooks/useAxios';
 import { ClientModel } from '../../models/client.model';
@@ -77,7 +78,7 @@ const ScheduleForm = () => {
   }
 
   return (
-    <section>
+    <Layout>
       <PageHeader
         title="Adicionando horário"
         showProgress={loadingClients || loadingServices || saving}
@@ -121,7 +122,7 @@ const ScheduleForm = () => {
           </div>
         </div>
       </form>
-    </section>
+    </Layout>
   );
 };
 

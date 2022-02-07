@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
+import Layout from '../../components/template/Layout';
 import { useAxios } from '../../hooks/useAxios';
 import { ServiceModel } from '../../models/service.model';
 
@@ -77,7 +78,7 @@ const ServiceForm = () => {
   }
 
   return (
-    <section>
+    <Layout>
       <PageHeader
         title={params?.id ? 'Editando serviço' : 'Adicionando serviço'}
         btnText="Salvar"
@@ -93,7 +94,7 @@ const ServiceForm = () => {
           disabled={loading}
         />
       </div>
-    </section>
+    </Layout>
   );
 };
 
