@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IconCalendar } from '../../icons/IconCalendar';
+import { IconHome } from '../../icons/IconHome';
 import { IconUserGroup } from '../../icons/IconUserGroup';
 import SidebarMenuItem from './SidebarMenuItem';
 
@@ -13,7 +14,9 @@ const Sidebar = () => {
         </Link>
       </div>
       <nav>
-        <ul className="flex items-center flex-1 mt-5 px-2">
+        <ul className="flex flex-col flex-1 mt-5 px-2">
+          <SidebarMenuItem label="Início" href="/" icon={IconHome} />
+          <SidebarMenuItem label="Horários" href="/schedules" icon={IconCalendar} />
           <SidebarMenuItem label="Clientes" href="/clients" icon={IconUserGroup} />
         </ul>
       </nav>

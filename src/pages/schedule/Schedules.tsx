@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
+import Layout from '../../components/template/Layout';
 import { useAxios } from '../../hooks/useAxios';
 import { ScheduleModel } from '../../models/schedule.model';
 import SchedulesTable from './components/SchedulesTable';
@@ -27,7 +28,7 @@ const Schedules = () => {
   }
 
   return (
-    <section>
+    <Layout>
       <PageHeader
         title="Horários"
         showProgress={loading}
@@ -42,7 +43,7 @@ const Schedules = () => {
       ) : (
         <p className="text-center mt-1">Não existem horários registrados.</p>
       )}
-    </section>
+    </Layout>
   );
 };
 
