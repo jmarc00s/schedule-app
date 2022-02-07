@@ -13,7 +13,7 @@ const SidebarMenuItem = ({ label, href, icon }: SidebarMenuItemProps) => {
       <Link className="w-full" to={href}>
         <div className="flex flex-1 flex-col justify-center items-center h-20">
           {icon}
-          <span className="text-xs font-light mt-1">{label}</span>
+          <span className="text-sm font-light mt-1">{label}</span>
         </div>
       </Link>
     </li>
