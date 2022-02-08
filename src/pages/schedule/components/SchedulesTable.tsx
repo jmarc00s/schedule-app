@@ -55,9 +55,9 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
   return (
     <div className="shadow border-b border-gray-200 rounded-lg">
       <table className="min-w-full table-auto">
-        <thead className="bg-indigo-500 text-gray-50 mb-5">
+        <thead className="bg-indigo-600 text-gray-50 mb-5">
           <tr>
-            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tl-sm">
+            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tl-lg">
               Cliente
             </th>
             <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
@@ -69,14 +69,17 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
             <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
               Status
             </th>
-            <th className="text-center px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tr-sm">
+            <th className="text-center px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tl-lg">
               Ações
             </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
           {schedules.map((schedule, index) => (
-            <tr key={schedule.id} className={`${index % 2 === 1 ? 'bg-gray-200' : ''}`}>
+            <tr
+              key={schedule.id}
+              className={`${index % 2 === 1 ? 'bg-indigo-100' : ''} font-light text-lg`}
+            >
               <td className="p-5">{schedule.client?.name}</td>
               <td>{schedule.service?.description}</td>
               <td>
