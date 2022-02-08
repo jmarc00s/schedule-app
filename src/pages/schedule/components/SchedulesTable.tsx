@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from '../../../components/Button';
+import { IconCancel } from '../../../components/icons/IconCancel';
+import { IconCheck } from '../../../components/icons/IconCheck';
 import { EStatusSchedule } from '../../../enum/status-schedule.enum';
 import { useAxios } from '../../../hooks/useAxios';
 import { ScheduleModel } from '../../../models/schedule.model';
@@ -78,7 +80,7 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
               <div className="mr-1">
                 <Button
                   disabled={schedule.status !== EStatusSchedule.PENDING}
-                  label="Confirmar"
+                  icon={IconCheck}
                   color="Green"
                   handleClick={() => {
                     confirmSchedule(schedule);
@@ -88,7 +90,7 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
 
               <Button
                 disabled={schedule.status !== EStatusSchedule.PENDING}
-                label="Cancelar"
+                icon={IconCancel}
                 color="Red"
                 handleClick={() => {
                   cancelSchedule(schedule);

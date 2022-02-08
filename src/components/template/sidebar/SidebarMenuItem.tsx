@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 interface SidebarMenuItemProps {
   label: string;
@@ -9,13 +9,18 @@ interface SidebarMenuItemProps {
 
 const SidebarMenuItem = ({ label, href, icon }: SidebarMenuItemProps) => {
   return (
-    <li className="hover:bg-indigo-600 hover:text-gray-50 text-gray-500 cursor-pointer flex flex-1 rounded">
-      <Link className="w-full" to={href}>
+    <li className="hover:bg-indigo-600 hover:text-gray-50 text-gray-500 cursor-pointer flex flex-1 rounded w-full">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? `bg-indigo-600 text-gray-50 w-full rounded` : 'w-full'
+        }
+        to={href}
+      >
         <div className="flex flex-1 flex-col justify-center items-center h-20">
           {icon}
           <span className="text-sm font-light mt-1">{label}</span>
         </div>
-      </Link>
+      </NavLink>
     </li>
   );
 };

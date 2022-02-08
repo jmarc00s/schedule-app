@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import Button from '../../../components/Button';
+import { IconDelete } from '../../../components/icons/IconDelete';
+import { IconEdit } from '../../../components/icons/IconEdit';
 import { ClientModel } from '../../../models/client.model';
 
 interface ClientTableProps {
@@ -33,12 +35,12 @@ const ClientTable = ({ clients, handleRemoveClick }: ClientTableProps) => {
             <td className="text-center">{address}</td>
             <td className="flex gap-2 items-center justify-center">
               <Button
-                label="Editar"
+                icon={IconEdit}
                 handleClick={() => handleEditClick(id)}
                 color="Indigo"
               />
               <Button
-                label="Remover"
+                icon={IconDelete}
                 handleClick={() => handleRemoveClick(id)}
                 color="Red"
               />

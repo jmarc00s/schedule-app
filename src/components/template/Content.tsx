@@ -6,8 +6,8 @@ interface ContentProps {
 
 const Content = ({ children }: ContentProps) => {
   return (
-    <section className="px-10 py-5 flex flex-col bg-gray-200" style={{ height: '95%' }}>
-      {children}
+    <section className="flex flex-col bg-gray-200" style={{ height: '95%' }}>
+      <div className="bg-gray-50 px-10 py-5">{children}</div>
     </section>
   );
 };

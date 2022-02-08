@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button';
+import { IconDelete } from '../../../components/icons/IconDelete';
+import { IconEdit } from '../../../components/icons/IconEdit';
 import { ServiceModel } from '../../../models/service.model';
 
 interface ServiceTableProps {
@@ -31,11 +33,15 @@ const ServiceTable = ({ services, handleRemove }: ServiceTableProps) => {
             <td className="text-center">{description}</td>
             <td className="flex gap-2 items-center justify-center">
               <Button
-                label="Editar"
+                icon={IconEdit}
                 handleClick={() => handleEditClick(id)}
                 color="Indigo"
               />
-              <Button label="Remover" handleClick={() => handleRemove(id)} color="Red" />
+              <Button
+                icon={IconDelete}
+                handleClick={() => handleRemove(id)}
+                color="Red"
+              />
             </td>
           </tr>
         ))}

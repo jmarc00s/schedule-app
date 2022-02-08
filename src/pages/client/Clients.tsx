@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IconPlus } from '../../components/icons/IconPlus';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
 import { useAxios } from '../../hooks/useAxios';
@@ -51,7 +52,7 @@ const Clients = () => {
     <Layout>
       <PageHeader
         title="Clientes"
-        btnText="Adicionar"
+        btnText="Adicionar cliente"
         handleBtnClick={() => navigate('/clients/add')}
         showProgress={loading}
       />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Button from './Button';
 import ProgressBar from './ProgressBar';
 
@@ -6,6 +6,7 @@ interface PageHeaderProps {
   title: string;
   showProgress: boolean;
   btnText?: string;
+  btnIcon?: ReactNode;
   disableBtn?: boolean;
   handleBtnClick: () => void;
 }
