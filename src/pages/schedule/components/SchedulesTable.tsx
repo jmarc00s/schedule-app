@@ -69,7 +69,7 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
             <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
               Status
             </th>
-            <th className="text-center px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tl-lg">
+            <th className="text-center px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tr-lg">
               Ações
             </th>
           </tr>
