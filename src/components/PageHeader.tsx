@@ -20,8 +20,8 @@ const PageHeader = ({
 }: PageHeaderProps) => {
   return (
     <div>
-      <div className="py-4 flex sm:flex-row flex-col items-center justify-between border-b border-gray-400">
-        <h1 className="font-bold text-3xl">{title}</h1>
+      <div className="pb-16 flex sm:flex-row flex-col justify-between">
+        <h1 className="font-bold text-3xl text-gray-700">{title}</h1>
         {btnText && (
           <Button
             disabled={disableBtn}

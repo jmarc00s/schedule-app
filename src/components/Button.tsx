@@ -13,9 +13,15 @@ interface ButtonProps {
 
 const Button = ({ label, handleClick, color, disabled, icon }: ButtonProps) => {
   const colorClasses = {
-    'bg-indigo-600': color === 'Indigo',
-    'bg-green-600': color === 'Green',
-    'bg-red-600': color === 'Red',
+    'bg-indigo-400': color === 'Indigo',
+    'bg-green-300': color === 'Green',
+    'bg-red-300': color === 'Red',
+  };
+
+  const textClasses = {
+    'text-indigo-800': color === 'Indigo',
+    'text-green-800': color === 'Green',
+    'text-red-800': color === 'Red',
   };
 
   const disabledClasses = [
@@ -29,8 +35,8 @@ const Button = ({ label, handleClick, color, disabled, icon }: ButtonProps) => {
     <button
       disabled={disabled}
       className={classNames(
-        'py-2 px-6 rounded',
-        disabled ? disabledClasses : [`text-white`, colorClasses]
+        'py-2 px-6 rounded font-semibold',
+        disabled ? disabledClasses : [`text-white`, colorClasses, textClasses]
       )}
       onClick={handleClick}
     >

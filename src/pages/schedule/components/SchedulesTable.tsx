@@ -53,54 +53,64 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
   }
 
   return (
-    <table className="w-full">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Cliente</th>
-          <th>Serviço</th>
-          <th>Horário</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {schedules.map((schedule) => (
-          <tr key={schedule.id}>
-            <td className="text-center">{schedule.id}</td>
-            <td className="text-center">{schedule.client?.name}</td>
-            <td className="text-center">{schedule.service?.description}</td>
-            <td className="text-center">
-              {schedule.date} - {schedule.time}
-            </td>
-            <td className="text-center">
-              <ScheduleTag status={schedule.status} />
-            </td>
-            <td className="flex justify-center">
-              <div className="mr-1">
+    <div className="shadow border-b border-gray-200 rounded-lg">
+      <table className="min-w-full table-auto">
+        <thead className="bg-indigo-500 text-gray-50 mb-5">
+          <tr>
+            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tl-sm">
+              Cliente
+            </th>
+            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
+              Serviço
+            </th>
+            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
+              Horário
+            </th>
+            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
+              Status
+            </th>
+            <th className="text-center px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tr-sm">
+              Ações
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200">
+          {schedules.map((schedule, index) => (
+            <tr key={schedule.id} className={`${index % 2 === 1 ? 'bg-gray-200' : ''}`}>
+              <td className="p-5">{schedule.client?.name}</td>
+              <td>{schedule.service?.description}</td>
+              <td>
+                {schedule.date} - {schedule.time}
+              </td>
+              <td>
+                <ScheduleTag status={schedule.status} />
+              </td>
+              <td className="flex justify-center py-3">
+                <div className="mr-1">
+                  <Button
+                    disabled={schedule.status !== EStatusSchedule.PENDING}
+                    icon={IconCheck}
+                    color="Green"
+                    handleClick={() => {
+                      confirmSchedule(schedule);
+                    }}
+                  />
+                </div>
+
                 <Button
                   disabled={schedule.status !== EStatusSchedule.PENDING}
-                  icon={IconCheck}
-                  color="Green"
+                  icon={IconCancel}
+                  color="Red"
                   handleClick={() => {
-                    confirmSchedule(schedule);
+                    cancelSchedule(schedule);
                   }}
                 />
-              </div>
-
-              <Button
-                disabled={schedule.status !== EStatusSchedule.PENDING}
-                icon={IconCancel}
-                color="Red"
-                handleClick={() => {
-                  cancelSchedule(schedule);
-                }}
-              />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
