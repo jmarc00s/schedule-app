@@ -1,14 +1,14 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Home from '../pages/Home';
-import ScheduleForm from '../pages/schedule/ScheduleForm';
-import Schedules from '../pages/schedule/Schedules';
-import ServiceForm from '../pages/services/ServiceForm';
-import Services from '../pages/services/Services';
+import Home from '../../../pages/Home';
+import ScheduleForm from '../../../pages/schedule/ScheduleForm';
+import Schedules from '../../../pages/schedule/Schedules';
+import ServiceForm from '../../../pages/services/ServiceForm';
+import Services from '../../../pages/services/Services';
 
-const Clients = React.lazy(() => import('../pages/client/Clients'));
-const ClientForm = React.lazy(() => import('../pages/client/ClientForm'));
+const Clients = React.lazy(() => import('../../../pages/client/Clients'));
+const ClientForm = React.lazy(() => import('../../../pages/client/ClientForm'));
 
 const Router = () => {
   return (

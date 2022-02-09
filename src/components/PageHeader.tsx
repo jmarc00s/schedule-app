@@ -19,8 +19,8 @@ const PageHeader = ({
   disableBtn,
 }: PageHeaderProps) => {
   return (
-    <div>
-      <div className="pb-16 flex sm:flex-row flex-col justify-between">
+    <div className="pb-4">
+      <div className="pb-8 flex sm:flex-row flex-col justify-between">
         <h1 className="font-bold text-3xl text-gray-700">{title}</h1>
         {btnText && (
           <Button

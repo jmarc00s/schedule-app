@@ -37,15 +37,15 @@ const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
   }
 
   return (
-    <div className="shadow border-b border-gray-200 rounded-lg">
+    <div className="shadow border-b border-gray-200 rounded-sm">
       <table className="min-w-full table-auto">
         <thead className="bg-indigo-600 text-gray-50 mb-5">
           <tr>
             {columns.map((column, index) => (
               <th
                 className={`text-left px-5 py-3 uppercase text-sm font-medium tracking-wider ${
-                  index === 0 ? 'rounded-tl-lg' : ''
-                } ${index === columns.length - 1 ? 'rounded-tr-lg' : ''}`}
+                  index === 0 ? 'rounded-tl-sm' : ''
+                } ${index === columns.length - 1 ? 'rounded-tr-sm' : ''}`}
               >
                 {column.title}
               </th>
