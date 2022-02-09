@@ -1,6 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router';
 import Button from '../../../components/Button';
+import Datatable, { ColumnDefinition } from '../../../components/Datatable';
 import { IconDelete } from '../../../components/icons/IconDelete';
 import { IconEdit } from '../../../components/icons/IconEdit';
 import { ClientModel } from '../../../models/client.model';
@@ -13,43 +13,37 @@ interface ClientTableProps {
 const ClientTable = ({ clients, handleRemoveClick }: ClientTableProps) => {
   const navigate = useNavigate();
 
+  const columns: ColumnDefinition[] = [
+    {
+      title: 'Nome',
+      property: 'name',
+      type: 'text',
+    },
+    {
+      title: 'Endereço',
+      property: 'address',
+      type: 'text',
+    },
+    {
+      title: 'Ações',
+      property: 'actions',
+      type: 'action',
+      actionElement: (id) => actionElement(id),
+    },
+  ];
+
   function handleEditClick(id: number) {
     navigate(`/clients/${id}/edit`);
   }
 
-  return (
-    <table className="w-full">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Endereço</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {clients?.map(({ id, name, address }) => (
-          <tr key={id}>
-            <td className="text-center">{id}</td>
-            <td className="text-center">{name}</td>
-            <td className="text-center">{address}</td>
-            <td className="flex gap-2 items-center justify-center">
-              <Button
-                icon={IconEdit}
-                handleClick={() => handleEditClick(id)}
-                color="Indigo"
-              />
-              <Button
-                icon={IconDelete}
-                handleClick={() => handleRemoveClick(id)}
-                color="Red"
-              />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+  const actionElement = (id: number) => (
+    <div className="flex gap-3">
+      <Button icon={IconEdit} handleClick={() => handleEditClick(id)} color="Indigo" />
+      <Button icon={IconDelete} handleClick={() => handleRemoveClick(id)} color="Red" />
+    </div>
   );
+
+  return <Datatable columns={columns} datasource={clients} idProperty="id" />;
 };
 
 export default ClientTable;
