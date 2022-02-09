@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAxios } from '../../hooks/useAxios';
+import { useAxios } from '../../core/hooks/useAxios';
 import { AxiosRequestConfig } from 'axios';
 
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 
-import { ClientModel } from '../../models/client.model';
+import { ClientModel } from '../../core/models/client.model';
 import Layout from '../../components/template/Layout';
 
 const ClientForm = () => {

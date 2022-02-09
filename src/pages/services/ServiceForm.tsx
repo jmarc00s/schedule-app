@@ -4,8 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
-import { useAxios } from '../../hooks/useAxios';
-import { ServiceModel } from '../../models/service.model';
+import { useAxios } from '../../core/hooks/useAxios';
+import { ServiceModel } from '../../core/models/service.model';
 
 const ServiceForm = () => {
   const params = useParams();

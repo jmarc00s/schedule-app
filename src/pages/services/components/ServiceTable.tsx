@@ -4,7 +4,7 @@ import Button from '../../../components/Button';
 import Datatable, { ColumnDefinition } from '../../../components/Datatable';
 import { IconDelete } from '../../../components/icons/IconDelete';
 import { IconEdit } from '../../../components/icons/IconEdit';
-import { ServiceModel } from '../../../models/service.model';
+import { ServiceModel } from '../../../core/models/service.model';
 
 interface ServiceTableProps {
   services: ServiceModel[];

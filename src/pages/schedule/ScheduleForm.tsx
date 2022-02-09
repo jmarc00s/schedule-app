@@ -4,11 +4,11 @@ import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Select from '../../components/Select';
 import Layout from '../../components/template/Layout';
-import { EStatusSchedule } from '../../enum/status-schedule.enum';
-import { useAxios } from '../../hooks/useAxios';
-import { ClientModel } from '../../models/client.model';
-import { ScheduleModel } from '../../models/schedule.model';
-import { ServiceModel } from '../../models/service.model';
+import { EStatusSchedule } from '../../core/enum/status-schedule.enum';
+import { useAxios } from '../../core/hooks/useAxios';
+import { ClientModel } from '../../core/models/client.model';
+import { ScheduleModel } from '../../core/models/schedule.model';
+import { ServiceModel } from '../../core/models/service.model';
 
 interface ScheduleFormModel {
   client: ClientModel | undefined;

@@ -3,7 +3,7 @@ import Button from '../../../components/Button';
 import Datatable, { ColumnDefinition } from '../../../components/Datatable';
 import { IconDelete } from '../../../components/icons/IconDelete';
 import { IconEdit } from '../../../components/icons/IconEdit';
-import { ClientModel } from '../../../models/client.model';
+import { ClientModel } from '../../../core/models/client.model';
 
 interface ClientTableProps {
   clients: ClientModel[];

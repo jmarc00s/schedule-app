@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { EStatusSchedule } from '../../../enum/status-schedule.enum';
+import { EStatusSchedule } from '../../../core/enum/status-schedule.enum';
 
 interface ScheduleTagProps {
   status: EStatusSchedule;

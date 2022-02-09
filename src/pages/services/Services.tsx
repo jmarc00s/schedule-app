@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
-import { useAxios } from '../../hooks/useAxios';
-import { ServiceModel } from '../../models/service.model';
+import { useAxios } from '../../core/hooks/useAxios';
+import { ServiceModel } from '../../core/models/service.model';
 import ServiceTable from './components/ServiceTable';
 
 const Services = () => {

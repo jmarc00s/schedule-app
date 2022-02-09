@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { IconPlus } from '../../components/icons/IconPlus';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
-import { useAxios } from '../../hooks/useAxios';
+import { useAxios } from '../../core/hooks/useAxios';
 
-import { ClientModel } from '../../models/client.model';
+import { ClientModel } from '../../core/models/client.model';
 import ClientTable from './components/ClientTable';
 
 const Clients = () => {

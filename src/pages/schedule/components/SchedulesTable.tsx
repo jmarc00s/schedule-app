@@ -2,9 +2,9 @@ import React from 'react';
 import Button from '../../../components/Button';
 import { IconCancel } from '../../../components/icons/IconCancel';
 import { IconCheck } from '../../../components/icons/IconCheck';
-import { EStatusSchedule } from '../../../enum/status-schedule.enum';
-import { useAxios } from '../../../hooks/useAxios';
-import { ScheduleModel } from '../../../models/schedule.model';
+import { EStatusSchedule } from '../../../core/enum/status-schedule.enum';
+import { useAxios } from '../../../core/hooks/useAxios';
+import { ScheduleModel } from '../../../core/models/schedule.model';
 import ScheduleTag from './ScheduleTag';
 
 interface SchedulesTableProps {

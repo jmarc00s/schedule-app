@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
-import { useAxios } from '../../hooks/useAxios';
-import { ScheduleModel } from '../../models/schedule.model';
+import { useAxios } from '../../core/hooks/useAxios';
+import { ScheduleModel } from '../../core/models/schedule.model';
 import SchedulesTable from './components/SchedulesTable';
 
 const Schedules = () => {
