@@ -43,7 +43,7 @@ const ClientTable = ({ clients, handleRemoveClick }: ClientTableProps) => {
     </div>
   );
 
-  return <Datatable columns={columns} datasource={clients} idProperty="id" />;
+  return <Datatable columns={columns} datasource={clients} />;
 };
 
 export default ClientTable;

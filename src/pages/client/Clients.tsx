@@ -56,9 +56,7 @@ const Clients = () => {
         handleBtnClick={() => navigate('/clients/add')}
         showProgress={loading}
       />
-      <div className="mt-5">
-        <ClientTable clients={clients} handleRemoveClick={handleRemove} />
-      </div>
+      <ClientTable clients={clients} handleRemoveClick={handleRemove} />
     </Layout>
   );
 };

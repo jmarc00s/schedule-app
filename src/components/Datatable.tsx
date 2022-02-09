@@ -12,7 +12,7 @@ export interface ColumnDefinition {
 interface DatatableProps {
   columns: ColumnDefinition[];
   datasource: any[];
-  idProperty: string;
+  idProperty?: string;
 }
 
 const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
@@ -24,10 +24,12 @@ const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
         case 'action':
           if (actionColumn) {
             return (
-              <td className="p-5 flex items-center">{actionColumn(data[idProperty])}</td>
+              <td className="p-5 flex items-center">
+                {actionColumn(data[idProperty ? idProperty : 'id'])}
+              </td>
             );
           }
-          break;
+          return <td className="p-5"></td>;
         default:
           return null;
       }

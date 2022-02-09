@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button';
+import Datatable, { ColumnDefinition } from '../../../components/Datatable';
 import { IconDelete } from '../../../components/icons/IconDelete';
 import { IconEdit } from '../../../components/icons/IconEdit';
 import { ServiceModel } from '../../../models/service.model';
@@ -17,37 +18,29 @@ const ServiceTable = ({ services, handleRemove }: ServiceTableProps) => {
     navigate(`${id}/edit`);
   }
 
-  return (
-    <table className="w-full">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Descrição</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {services?.map(({ id, description }) => (
-          <tr key={id}>
-            <td className="text-center">{id}</td>
-            <td className="text-center">{description}</td>
-            <td className="flex gap-2 items-center justify-center">
-              <Button
-                icon={IconEdit}
-                handleClick={() => handleEditClick(id)}
-                color="Indigo"
-              />
-              <Button
-                icon={IconDelete}
-                handleClick={() => handleRemove(id)}
-                color="Red"
-              />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  const columns: ColumnDefinition[] = [
+    {
+      title: 'Descrição do serviço',
+      property: 'description',
+      type: 'text',
+    },
+    {
+      title: 'Ações',
+      type: 'action',
+      actionElement: (id) => (
+        <div className="flex gap-2 ">
+          <Button
+            icon={IconEdit}
+            handleClick={() => handleEditClick(id)}
+            color="Indigo"
+          />
+          <Button icon={IconDelete} handleClick={() => handleRemove(id)} color="Red" />
+        </div>
+      ),
+    },
+  ];
+
+  return <Datatable datasource={services} columns={columns} />;
 };
 
 export default ServiceTable;
