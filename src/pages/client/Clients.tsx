@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useConfirmation from 'src/core/hooks/useConfirmation';
 import { IconPlus } from '../../components/icons/IconPlus';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
@@ -13,6 +14,7 @@ const Clients = () => {
   const [clients, setClients] = React.useState<ClientModel[]>([]);
   const { loading, request, error } = useAxios<ClientModel[]>();
   const navigate = useNavigate();
+  const { openDialog } = useConfirmation();
 
   React.useEffect(() => {
     async function getClients() {
@@ -32,7 +34,7 @@ const Clients = () => {
   }, []);
 
   async function handleRemove(id: number) {
-    const confirm = window.confirm('Deseja realmente excluir esse registro?');
+    const confirm = openDialog('Deseja realmente excluir esse registro?');
 
     if (confirm) {
       var requestConfig: AxiosRequestConfig = {
