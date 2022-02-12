@@ -17,7 +17,12 @@ const Select = ({
 }: SelectProps) => {
   return (
     <>
-      <label htmlFor="select">{label}</label>
+      <label
+        htmlFor="select"
+        className="uppercase inline-block pb-2 font-semibold text-sm"
+      >
+        {label}
+      </label>
       <select
         name="select"
         className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"

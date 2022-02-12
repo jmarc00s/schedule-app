@@ -15,9 +15,9 @@ const ClientForm = () => {
   const navigate = useNavigate();
   const [client, setClient] = React.useState<ClientModel | undefined>(undefined);
   const { request, loading } = useAxios<ClientModel>();
-
   const [name, setName] = React.useState<string>('');
   const [address, setAddress] = React.useState<string>('');
+  const { showSuccessToast } = useToast();
 
   React.useEffect(() => {
     async function getClient(id: number) {
@@ -36,7 +36,7 @@ const ClientForm = () => {
     if (params.id) {
       getClient(Number(params.id));
     }
-  });
+  }, [params.id]);
 
   function formIsInvalid(): boolean {
     const formValid = !!(name?.length && address?.length);
@@ -74,6 +74,7 @@ const ClientForm = () => {
 
     if (data) {
       navigate('/clients');
+      showSuccessToast('Cliente criado com sucesso!');
     }
   }
 
@@ -94,6 +95,7 @@ const ClientForm = () => {
 
     if (response) {
       navigate('/clients');
+      showSuccessToast('Cliente editado com sucesso!');
     }
   }
 
@@ -106,8 +108,9 @@ const ClientForm = () => {
         showProgress={loading}
         disableBtn={formIsInvalid()}
       />
-      <form className="flex flex-col items-center justify-center gap-3 mt-2">
+      <form className="flex flex-col gap-3 mt-2">
         <Input
+          label="Nome"
           placeHolder="Nome"
           value={name}
           setValue={(value) => setName(value)}
@@ -115,15 +118,13 @@ const ClientForm = () => {
           name="nome"
           id="nome"
         />
-        <input
-          className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
-          placeholder="Endereço"
-          type="text"
+        <Input
           name="address"
           id="address"
-          onChange={({ target }) => setAddress(target.value)}
+          label="Endereço"
+          placeHolder="Endereço"
+          setValue={(value) => setAddress(value)}
           value={address}
-          autoComplete="off"
           maxLength={100}
           disabled={loading}
         />

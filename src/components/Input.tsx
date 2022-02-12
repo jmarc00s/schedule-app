@@ -23,7 +23,11 @@ const Input = ({
 }: InputProps) => {
   return (
     <>
-      {label?.length && <label htmlFor="id">{label}</label>}
+      {label?.length && (
+        <label className="font-semibold uppercase text-sm pb-2 inline-block" htmlFor="id">
+          {label}
+        </label>
+      )}
       <input
         className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
         placeholder={placeHolder}

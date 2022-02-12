@@ -88,6 +88,7 @@ const ServiceForm = () => {
       />
       <div className="mt-5">
         <Input
+          label="Descrição"
           value={description}
           setValue={(value) => setDescription(value)}
           placeHolder="Descrição"
