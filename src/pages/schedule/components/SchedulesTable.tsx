@@ -1,4 +1,4 @@
-import React from 'react';
+import Datatable, { ColumnDefinition } from 'src/components/Datatable';
 import { useToast } from 'src/core/hooks/useToast';
 import Button from '../../../components/Button';
 import { IconCancel } from '../../../components/icons/IconCancel';
@@ -16,6 +16,54 @@ interface SchedulesTableProps {
 const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
   const { request, error } = useAxios<ScheduleModel>();
   const { showSuccessToast, showDefaultToast } = useToast();
+
+  const columns: ColumnDefinition[] = [
+    {
+      title: 'Cliente',
+      type: 'text',
+      renderText: ({ client }: ScheduleModel) => client?.name || '',
+    },
+    {
+      title: 'Serviço',
+      type: 'text',
+      renderText: ({ service }: ScheduleModel) => service?.description || '',
+    },
+    {
+      title: 'Horário',
+      type: 'text',
+      renderText: ({ date, time }: ScheduleModel) => `${date} - ${time}`,
+    },
+    {
+      title: 'Status',
+      type: 'element',
+      element: (schedule: any) => <ScheduleTag status={schedule.status} />,
+    },
+    {
+      title: 'Ações',
+      type: 'action',
+      actionElement: (id: number, schedule: ScheduleModel) => (
+        <div className="flex justify-center gap-1">
+          <Button
+            disabled={schedule.status !== EStatusSchedule.PENDING}
+            icon={IconCheck}
+            color="Green"
+            handleClick={() => {
+              confirmSchedule(schedule);
+            }}
+          />
+
+          <Button
+            disabled={schedule.status !== EStatusSchedule.PENDING}
+            icon={IconCancel}
+            color="Red"
+            handleClick={() => {
+              cancelSchedule(schedule);
+            }}
+          />
+        </div>
+      ),
+    },
+  ];
 
   function confirmSchedule(schedule: ScheduleModel): void {
     editScheduleStatus(schedule, EStatusSchedule.CONFIRMED);
@@ -56,69 +104,7 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
     }
   }
 
-  return (
-    <div className="shadow border-b border-gray-200 rounded-lg">
-      <table className="min-w-full table-auto">
-        <thead className="bg-indigo-600 text-gray-50 mb-5">
-          <tr>
-            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tl-lg">
-              Cliente
-            </th>
-            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
-              Serviço
-            </th>
-            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
-              Horário
-            </th>
-            <th className="text-left px-5 py-3 uppercase text-sm font-medium tracking-wider">
-              Status
-            </th>
-            <th className="text-center px-5 py-3 uppercase text-sm font-medium tracking-wider rounded-tr-lg">
-              Ações
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {schedules.map((schedule, index) => (
-            <tr
-              key={schedule.id}
-              className={`${index % 2 === 1 ? 'bg-indigo-100' : ''} font-light text-lg`}
-            >
-              <td className="p-5">{schedule.client?.name}</td>
-              <td>{schedule.service?.description}</td>
-              <td>
-                {schedule.date} - {schedule.time}
-              </td>
-              <td>
-                <ScheduleTag status={schedule.status} />
-              </td>
-              <td className="flex justify-center py-3">
-                <div className="mr-1">
-                  <Button
-                    disabled={schedule.status !== EStatusSchedule.PENDING}
-                    icon={IconCheck}
-                    color="Green"
-                    handleClick={() => {
-                      confirmSchedule(schedule);
-                    }}
-                  />
-                </div>
-
-                <Button
-                  disabled={schedule.status !== EStatusSchedule.PENDING}
-                  icon={IconCancel}
-                  color="Red"
-                  handleClick={() => {
-                    cancelSchedule(schedule);
-                  }}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <Datatable columns={columns} datasource={schedules} />;
 };
 
 export default SchedulesTable;
