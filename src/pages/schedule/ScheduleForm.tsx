@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from 'src/core/hooks/useToast';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Select from '../../components/Select';
@@ -31,6 +32,7 @@ const ScheduleForm = () => {
     useAxios<ServiceModel[]>();
   const { request, loading: saving, error } = useAxios<ScheduleModel>();
   const navigate = useNavigate();
+  const { showSuccessToast } = useToast();
 
   React.useEffect(() => {
     async function getClients() {
@@ -63,6 +65,7 @@ const ScheduleForm = () => {
     await request({ url: '/schedules', method: 'POST', data: schedule });
 
     if (!error) {
+      showSuccessToast('Horário criado com sucesso!');
       navigate('/schedules');
     }
   }

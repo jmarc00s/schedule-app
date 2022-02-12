@@ -1,4 +1,5 @@
 import React from 'react';
+import { useToast } from 'src/core/hooks/useToast';
 import Button from '../../../components/Button';
 import { IconCancel } from '../../../components/icons/IconCancel';
 import { IconCheck } from '../../../components/icons/IconCheck';
@@ -14,13 +15,16 @@ interface SchedulesTableProps {
 
 const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
   const { request, error } = useAxios<ScheduleModel>();
+  const { showSuccessToast, showDefaultToast } = useToast();
 
   function confirmSchedule(schedule: ScheduleModel): void {
     editScheduleStatus(schedule, EStatusSchedule.CONFIRMED);
+    showSuccessToast('Horário confirmado com sucesso!');
   }
 
   function cancelSchedule(schedule: ScheduleModel): void {
     editScheduleStatus(schedule, EStatusSchedule.CANCELED);
+    showDefaultToast('Horário cancelado com sucesso!');
   }
 
   async function editScheduleStatus(
