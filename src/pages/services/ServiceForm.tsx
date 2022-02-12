@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useToast } from 'src/core/hooks/useToast';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Layout from '../../components/template/Layout';
@@ -12,6 +13,7 @@ const ServiceForm = () => {
   const navigate = useNavigate();
   const { request, loading } = useAxios<ServiceModel | undefined>();
   const [description, setDescription] = React.useState<string>('');
+  const { showSuccessToast } = useToast();
 
   React.useEffect(() => {
     async function getService(id: number) {
@@ -30,7 +32,7 @@ const ServiceForm = () => {
     if (params.id) {
       getService(Number(params.id));
     }
-  }, []);
+  }, [params.id]);
 
   function handleSaveClick() {
     if (params.id) {
@@ -55,6 +57,7 @@ const ServiceForm = () => {
     const data = await request(requestConfig);
 
     if (data) {
+      showSuccessToast('Serviço editado com sucesso!');
       navigate('/services');
     }
   }
@@ -73,6 +76,7 @@ const ServiceForm = () => {
     const data = await request(requestConfig);
 
     if (data) {
+      showSuccessToast('Serviço criado com sucesso!');
       navigate('/services');
     }
   }
