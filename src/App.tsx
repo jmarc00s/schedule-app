@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import Router from './core/config/routes/Routes';
 
 import 'react-toastify/dist/ReactToastify.min.css';
+import Layout from './components/template/Layout';
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         pauseOnHover={false}
       />
       <BrowserRouter>
-        <Router />
+        <Layout>
+          <Router />
+        </Layout>
       </BrowserRouter>
     </main>
   );

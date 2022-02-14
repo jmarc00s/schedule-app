@@ -2,7 +2,6 @@ import { AxiosRequestConfig } from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
-import Layout from '../../components/template/Layout';
 import { useAxios } from '../../core/hooks/useAxios';
 import { ServiceModel } from '../../core/models/service.model';
 import ServiceTable from './components/ServiceTable';
@@ -48,7 +47,7 @@ const Services = () => {
   }
 
   return (
-    <Layout>
+    <section>
       <PageHeader
         title="Serviços"
         btnText="Adicionar serviço"
@@ -61,7 +60,7 @@ const Services = () => {
       ) : (
         <p className="text-center">Não existem serviços cadastrados.</p>
       )}
-    </Layout>
+    </section>
   );
 };
 

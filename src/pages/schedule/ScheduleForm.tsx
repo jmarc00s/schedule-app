@@ -4,7 +4,6 @@ import { useToast } from 'src/core/hooks/useToast';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Select from '../../components/Select';
-import Layout from '../../components/template/Layout';
 import { EStatusSchedule } from '../../core/enum/status-schedule.enum';
 import { useAxios } from '../../core/hooks/useAxios';
 import { ClientModel } from '../../core/models/client.model';
@@ -81,7 +80,7 @@ const ScheduleForm = () => {
   }
 
   return (
-    <Layout>
+    <section>
       <PageHeader
         title="Adicionando horário"
         showProgress={loadingClients || loadingServices || saving}
@@ -125,7 +124,7 @@ const ScheduleForm = () => {
           </div>
         </div>
       </form>
-    </Layout>
+    </section>
   );
 };
 

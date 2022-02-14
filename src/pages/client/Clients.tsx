@@ -2,9 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useConfirmation from 'src/core/hooks/useConfirmation';
-import { IconPlus } from '../../components/icons/IconPlus';
 import PageHeader from '../../components/PageHeader';
-import Layout from '../../components/template/Layout';
 import { useAxios } from '../../core/hooks/useAxios';
 
 import { ClientModel } from '../../core/models/client.model';
@@ -51,7 +49,7 @@ const Clients = () => {
   }
 
   return (
-    <Layout>
+    <section>
       <PageHeader
         title="Clientes"
         btnText="Adicionar cliente"
@@ -59,7 +57,7 @@ const Clients = () => {
         showProgress={loading}
       />
       <ClientTable clients={clients} handleRemoveClick={handleRemove} />
-    </Layout>
+    </section>
   );
 };
 

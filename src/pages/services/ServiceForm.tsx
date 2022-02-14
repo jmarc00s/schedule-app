@@ -4,7 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from 'src/core/hooks/useToast';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
-import Layout from '../../components/template/Layout';
 import { useAxios } from '../../core/hooks/useAxios';
 import { ServiceModel } from '../../core/models/service.model';
 
@@ -82,7 +81,7 @@ const ServiceForm = () => {
   }
 
   return (
-    <Layout>
+    <section>
       <PageHeader
         title={params?.id ? 'Editando serviço' : 'Adicionando serviço'}
         btnText="Salvar"
@@ -99,7 +98,7 @@ const ServiceForm = () => {
           disabled={loading}
         />
       </div>
-    </Layout>
+    </section>
   );
 };
 

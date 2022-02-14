@@ -100,7 +100,7 @@ const ClientForm = () => {
   }
 
   return (
-    <Layout>
+    <section>
       <PageHeader
         title={params.id ? 'Editar cliente' : 'Adicionar cliente'}
         btnText="Salvar"
@@ -129,7 +129,7 @@ const ClientForm = () => {
           disabled={loading}
         />
       </form>
-    </Layout>
+    </section>
   );
 };
 
