@@ -1,11 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Login from 'src/pages/Login';
 
 import Home from '../../../pages/Home';
 import ScheduleForm from '../../../pages/schedule/ScheduleForm';
 import Schedules from '../../../pages/schedule/Schedules';
 import ServiceForm from '../../../pages/services/ServiceForm';
 import Services from '../../../pages/services/Services';
+import ProtectedRoute from './ProtectedRoute';
 
 const Clients = React.lazy(() => import('../../../pages/client/Clients'));
 const ClientForm = React.lazy(() => import('../../../pages/client/ClientForm'));
@@ -13,7 +15,15 @@ const ClientForm = React.lazy(() => import('../../../pages/client/ClientForm'));
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="clients"
         element={
