@@ -65,6 +65,7 @@ const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
           <tr>
             {columns.map((column, index) => (
               <th
+                key={index}
                 className={`text-left px-5 py-3 uppercase text-sm font-medium tracking-wider ${
                   index === 0 ? 'rounded-tl-sm' : ''
                 } ${index === columns.length - 1 ? 'rounded-tr-sm' : ''}`}

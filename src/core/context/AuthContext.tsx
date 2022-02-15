@@ -1,7 +1,9 @@
 import { createContext, ReactNode, useState } from 'react';
 import { useAxios } from '../hooks/useAxios';
 import { UserModel } from '../models/user.model';
+import useConfirmation from '../hooks/useConfirmation';
 import md5 from 'md5';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   logout: () => void;
@@ -26,6 +28,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserModel | undefined>();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { request, loading } = useAxios<UserModel[]>();
+  const { openDialog } = useConfirmation();
 
   async function login(username: string, password: string) {
     const user = await request({
@@ -39,8 +42,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   function logout() {
-    setUser(undefined);
-    setIsAuthenticated(false);
+    const confirmation = openDialog('Deseja realmente sair da aplicação ?');
+
+    if (confirmation) {
+      setUser(undefined);
+      setIsAuthenticated(false);
+    }
   }
 
   return (
