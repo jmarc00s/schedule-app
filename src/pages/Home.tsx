@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '../components/Card';
-import Layout from '../components/template/Layout';
 import { useAxios } from '../core/hooks/useAxios';
 import { ScheduleModel } from '../core/models/schedule.model';
 
