@@ -4,6 +4,8 @@ import { UserModel } from '../models/user.model';
 import useConfirmation from '../hooks/useConfirmation';
 import md5 from 'md5';
 import { useEffect } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   logout: () => void;
@@ -29,10 +31,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { request, loading } = useAxios<UserModel[]>();
   const { openDialog } = useConfirmation();
+  const { setItem, getItem } = useLocalStorage('user');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setUser(undefined);
-    setIsAuthenticated(false);
+    const user = getItem();
+
+    if (user) {
+      setUser(user);
+      setIsAuthenticated(true);
+      navigate('/');
+    }
   }, []);
 
   async function login(username: string, password: string): Promise<boolean> {
@@ -43,6 +52,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (user?.length) {
       setUser(user[0]);
       setIsAuthenticated(true);
+      setItem(JSON.stringify({ username: user[0].username, email: user[0].email }));
       return true;
     }
 
@@ -55,6 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (confirmation) {
       setUser(undefined);
       setIsAuthenticated(false);
+      setItem(undefined);
     }
   }
 

@@ -54,7 +54,12 @@ const Login = () => {
             setValue={(value) => setPassword(value)}
             disabled={false}
           />
-          <Button label="Acessar" handleClick={handleSubmit} color="Dark indigo"></Button>
+          <Button
+            disabled={!username || !password}
+            label="Acessar"
+            handleClick={handleSubmit}
+            color="Dark indigo"
+          ></Button>
         </div>
       </div>
     </section>
