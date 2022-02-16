@@ -9,6 +9,7 @@ import useAuth from './core/hooks/useAuth';
 
 function App() {
   const { isAuthenticated } = useAuth();
+
   return (
     <main className="w-screen h-screen">
       <ToastContainer
@@ -19,13 +20,7 @@ function App() {
       />
       <AuthProvider>
         <BrowserRouter>
-          {isAuthenticated ? (
-            <Layout>
-              <Router />
-            </Layout>
-          ) : (
-            <Router />
-          )}
+          <Router />
         </BrowserRouter>
       </AuthProvider>
     </main>

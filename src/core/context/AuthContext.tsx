@@ -3,10 +3,11 @@ import { useAxios } from '../hooks/useAxios';
 import { UserModel } from '../models/user.model';
 import useConfirmation from '../hooks/useConfirmation';
 import md5 from 'md5';
+import { useEffect } from 'react';
 
 interface AuthContextProps {
   logout: () => void;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<boolean>;
   loading: boolean;
   isAuthenticated: boolean;
   user?: UserModel;
@@ -14,7 +15,7 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps>({
   loading: true,
-  login: async () => {},
+  login: async () => false,
   logout: () => {},
   isAuthenticated: false,
 });
@@ -29,7 +30,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { request, loading } = useAxios<UserModel[]>();
   const { openDialog } = useConfirmation();
 
-  async function login(username: string, password: string) {
+  useEffect(() => {
+    setUser(undefined);
+    setIsAuthenticated(false);
+  }, []);
+
+  async function login(username: string, password: string): Promise<boolean> {
     const user = await request({
       url: `/users?login=${username}&password=${md5(password)}`,
     });
@@ -37,7 +43,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (user?.length) {
       setUser(user[0]);
       setIsAuthenticated(true);
+      return true;
     }
+
+    return false;
   }
 
   function logout() {

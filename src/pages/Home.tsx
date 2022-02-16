@@ -1,4 +1,6 @@
 import React from 'react';
+import Layout from 'src/components/template/Layout';
+import useAuth from 'src/core/hooks/useAuth';
 import Card from '../components/Card';
 import { useAxios } from '../core/hooks/useAxios';
 import { ScheduleModel } from '../core/models/schedule.model';
@@ -6,6 +8,7 @@ import { ScheduleModel } from '../core/models/schedule.model';
 const Home = () => {
   const [schedules, setSchedules] = React.useState<ScheduleModel[]>([]);
   const { request } = useAxios<ScheduleModel[]>();
+  const { user } = useAuth();
 
   React.useEffect(() => {
     async function getSchedules() {
@@ -20,7 +23,8 @@ const Home = () => {
   }, []);
 
   return (
-    <section>
+    <Layout>
+      <h1>Bem vindo {user?.username}</h1>
       <Card title="Próximos horários">
         <ul>
           {schedules.map((schedule) => (
@@ -31,7 +35,7 @@ const Home = () => {
           ))}
         </ul>
       </Card>
-    </section>
+    </Layout>
   );
 };
 

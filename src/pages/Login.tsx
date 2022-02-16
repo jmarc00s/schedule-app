@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
 import useAuth from 'src/core/hooks/useAuth';
+import { useToast } from 'src/core/hooks/useToast';
 
 const Login = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate();
+  const { showErrorToast } = useToast();
 
   const { login } = useAuth();
 
-  function handleSubmit() {
-    console.log({ username, password });
+  function cleanUpForm() {
+    setUsername('');
+    setPassword('');
+  }
+
+  async function handleSubmit() {
+    const isAuthenticated = await login(username, password);
+
+    if (!isAuthenticated) {
+      showErrorToast('Não foi possível acessar a aplicação!');
+      cleanUpForm();
+      return;
+    }
+
+    navigate('/');
+    return;
   }
 
   return (
