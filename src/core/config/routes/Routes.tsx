@@ -27,79 +27,97 @@ const Router = () => {
       <Route
         path="clients"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <Clients></Clients>
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <Clients></Clients>
+            </React.Suspense>
+          </ProtectedRoute>
         }
       ></Route>
       <Route
         path="/clients/add"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <ClientForm />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <ClientForm />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       ></Route>
       <Route
         path="/clients/:id/edit"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <ClientForm />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <ClientForm />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       ></Route>
 
       <Route
         path="/schedules"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <Schedules />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <Schedules />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/schedules/add"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <ScheduleForm />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <ScheduleForm />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/schedules/:id/edit"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <ScheduleForm />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <ScheduleForm />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/services"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <Services />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <Services />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/services/add"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <ServiceForm />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <ServiceForm />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/services/:id/edit"
         element={
-          <React.Suspense fallback={<>...</>}>
-            <ServiceForm />
-          </React.Suspense>
+          <ProtectedRoute>
+            <React.Suspense fallback={<>...</>}>
+              <ServiceForm />
+            </React.Suspense>
+          </ProtectedRoute>
         }
       />
     </Routes>
