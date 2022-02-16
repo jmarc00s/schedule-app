@@ -3,7 +3,6 @@ import { useAxios } from '../hooks/useAxios';
 import { UserModel } from '../models/user.model';
 import useConfirmation from '../hooks/useConfirmation';
 import md5 from 'md5';
-import { useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   logout: () => void;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const useConfirmation = () => {
   function openDialog(message: string): boolean {
     const confirmation = window.confirm(message);

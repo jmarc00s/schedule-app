@@ -1,14 +1,17 @@
 import React from 'react';
 
 interface InputProps {
-  value: string | undefined;
-  setValue: (value: string) => void;
+  value?: string | undefined;
+  setValue?: (value: string) => void;
   placeHolder: string;
   disabled: boolean;
   label?: string;
   name?: string;
   id?: string;
   maxLength?: number;
+  type?: string;
+  required?: boolean;
+  register?: any;
 }
 
 const Input = ({
@@ -20,6 +23,9 @@ const Input = ({
   name,
   disabled,
   label,
+  type,
+  required,
+  register,
 }: InputProps) => {
   return (
     <>
@@ -29,16 +35,18 @@ const Input = ({
         </label>
       )}
       <input
+        ref={register}
         className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
         placeholder={placeHolder}
-        type="text"
+        type={type ? type : 'text'}
         name={name}
         id={id}
-        onChange={({ target }) => setValue(target.value)}
+        onChange={({ target }) => setValue && setValue(target.value)}
         value={value}
         autoComplete="off"
         maxLength={maxLength ? maxLength : 1000}
         disabled={disabled}
+        required={required}
       />
     </>
   );

@@ -5,10 +5,12 @@ import Router from './core/config/routes/Routes';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Layout from './components/template/Layout';
 import { AuthProvider } from './core/context/AuthContext';
+import useAuth from './core/hooks/useAuth';
 
 function App() {
+  const { isAuthenticated } = useAuth();
   return (
-    <main>
+    <main className="w-screen h-screen">
       <ToastContainer
         autoClose={2000}
         closeButton={true}
@@ -17,9 +19,13 @@ function App() {
       />
       <AuthProvider>
         <BrowserRouter>
-          <Layout>
+          {isAuthenticated ? (
+            <Layout>
+              <Router />
+            </Layout>
+          ) : (
             <Router />
-          </Layout>
+          )}
         </BrowserRouter>
       </AuthProvider>
     </main>
