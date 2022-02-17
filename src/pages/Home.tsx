@@ -23,19 +23,16 @@ const Home = () => {
   }, []);
 
   return (
-    <Layout>
-      <h1>Bem vindo {user?.username}</h1>
-      <Card title="Próximos horários">
-        <ul>
-          {schedules.map((schedule) => (
-            <li key={schedule.id}>
-              {schedule.client?.name} - {schedule.service?.description} - {schedule.date}{' '}
-              - {schedule.time}
-            </li>
-          ))}
-        </ul>
-      </Card>
-    </Layout>
+    <Card title="Próximos horários">
+      <ul>
+        {schedules.map((schedule) => (
+          <li key={schedule.id}>
+            {schedule.client?.name} - {schedule.service?.description} - {schedule.date} -{' '}
+            {schedule.time}
+          </li>
+        ))}
+      </ul>
+    </Card>
   );
 };
 

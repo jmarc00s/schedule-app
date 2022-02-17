@@ -1,20 +1,18 @@
-import { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
+
 import Content from './Content';
 import Header from './Header';
 import Sidebar from './sidebar/Sidebar';
 
-interface LayoutProps {
-  children: ReactNode;
-  pageTitle?: string;
-}
-
-const Layout = ({ children, pageTitle }: LayoutProps) => {
+const Layout = () => {
   return (
     <section className="flex flex-col w-screen h-screen">
       <Header />
       <section className="flex flex-1">
         <Sidebar />
-        <Content>{children}</Content>
+        <Content>
+          <Outlet />
+        </Content>
       </section>
     </section>
   );
