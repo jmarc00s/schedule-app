@@ -108,18 +108,22 @@ const ScheduleForm = () => {
             <Input
               label="Data"
               disabled={saving}
-              placeHolder="DD/MM/YYYY"
+              placeholder="DD/MM/YYYY"
               value={form?.date}
-              setValue={(value) => setForm({ ...form, date: value } as ScheduleFormModel)}
+              onChange={({ target }) =>
+                setForm({ ...form, date: target.value } as ScheduleFormModel)
+              }
             />
           </div>
           <div className="w-full">
             <Input
               label="Horário"
               disabled={saving}
-              placeHolder="HH:mm"
+              placeholder="HH:mm"
               value={form?.time}
-              setValue={(value) => setForm({ ...form, time: value } as ScheduleFormModel)}
+              onChange={({ target }) =>
+                setForm({ ...form, time: target.value } as ScheduleFormModel)
+              }
             />
           </div>
         </div>

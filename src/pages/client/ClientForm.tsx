@@ -111,9 +111,9 @@ const ClientForm = () => {
       <form className="flex flex-col gap-3 mt-2">
         <Input
           label="Nome"
-          placeHolder="Nome"
+          placeholder="Nome"
           value={name}
-          setValue={(value) => setName(value)}
+          onChange={({ target }) => setName(target.value)}
           disabled={loading}
           name="nome"
           id="nome"
@@ -122,8 +122,8 @@ const ClientForm = () => {
           name="address"
           id="address"
           label="Endereço"
-          placeHolder="Endereço"
-          setValue={(value) => setAddress(value)}
+          placeholder="Endereço"
+          onChange={({ target }) => setAddress(target.value)}
           value={address}
           maxLength={100}
           disabled={loading}

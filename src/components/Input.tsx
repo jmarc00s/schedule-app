@@ -1,53 +1,53 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
+import { FieldError } from 'react-hook-form';
 
-interface InputProps {
-  value?: string | undefined;
-  setValue?: (value: string) => void;
-  placeHolder: string;
-  disabled: boolean;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  name?: string;
-  id?: string;
-  maxLength?: number;
-  type?: string;
-  required?: boolean;
   register?: any;
+  name?: string;
+  errors?: FieldError;
+  validation?: any;
 }
 
-const Input = ({
-  setValue,
-  value,
-  placeHolder,
-  id,
-  maxLength,
-  name,
-  disabled,
-  label,
-  type,
-  required,
-  register,
-}: InputProps) => {
+const Input = ({ label, register, name, errors, validation, ...props }: InputProps) => {
+  function renderInput() {
+    if (register) {
+      return (
+        <input
+          id={name}
+          className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
+          {...register(name, validation)}
+          {...props}
+        />
+      );
+    }
+
+    return (
+      <input
+        id={name}
+        className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
+        {...props}
+      />
+    );
+  }
+
   return (
     <>
       {label?.length && (
-        <label className="font-semibold uppercase text-sm pb-2 inline-block" htmlFor="id">
+        <label
+          className="font-semibold uppercase text-sm pb-2 inline-block"
+          htmlFor={name}
+        >
           {label}
         </label>
       )}
-      <input
-        ref={register}
-        className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
-        placeholder={placeHolder}
-        type={type ? type : 'text'}
-        name={name}
-        id={id}
-        onChange={({ target }) => setValue && setValue(target.value)}
-        value={value}
-        autoComplete="off"
-        maxLength={maxLength ? maxLength : 1000}
-        disabled={disabled}
-        required={required}
-      />
+
+      {renderInput()}
+      {errors?.type === 'required' && (
+        <span className="font-medium text-red-500 tracking-wide text-xs mt-1 ml-1">
+          Campo obrigatório
+        </span>
+      )}
     </>
   );
 };

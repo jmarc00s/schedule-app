@@ -93,8 +93,8 @@ const ServiceForm = () => {
         <Input
           label="Descrição"
           value={description}
-          setValue={(value) => setDescription(value)}
-          placeHolder="Descrição"
+          onChange={({ target }) => setDescription(target.value)}
+          placeholder="Descrição"
           disabled={loading}
         />
       </div>

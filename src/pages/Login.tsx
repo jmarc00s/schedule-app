@@ -1,29 +1,36 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
 import useAuth from 'src/core/hooks/useAuth';
 import { useToast } from 'src/core/hooks/useToast';
 
+interface LoginFormData {
+  username: string;
+  password: string;
+}
+
 const Login = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
   const { showErrorToast } = useToast();
-
   const { login } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    defaultValues: { username: '', password: '' },
+  });
 
-  function cleanUpForm() {
-    setUsername('');
-    setPassword('');
-  }
+  async function onSubmit({ username, password }: LoginFormData) {
+    if (!username || !password) return;
 
-  async function handleSubmit() {
     const isAuthenticated = await login(username, password);
 
     if (!isAuthenticated) {
       showErrorToast('Não foi possível acessar a aplicação!');
-      cleanUpForm();
       return;
     }
 
@@ -40,24 +47,31 @@ const Login = () => {
             Realiza o login para acessar a aplicação
           </p>
         </div>
-        <div className="w-full flex flex-1 flex-col items-between gap-3">
-          <Input
-            placeHolder="Usuário"
-            value={username}
-            setValue={(value) => setUsername(value)}
-            disabled={false}
-          />
-          <Input
-            type="password"
-            placeHolder="Senha"
-            value={password}
-            setValue={(value) => setPassword(value)}
-            disabled={false}
-          />
+        <div className="w-full flex flex-1 flex-col items-between ">
+          <div className="mb-4">
+            <Input
+              required
+              placeholder="Usuário"
+              defaultValue={''}
+              register={register}
+              name="username"
+              errors={errors.username}
+              validation={{ required: true }}
+            />
+          </div>
+          <div className="mb-4">
+            <Input
+              type="password"
+              placeholder="Senha"
+              name="password"
+              register={register}
+              errors={errors.password}
+              validation={{ required: true }}
+            />
+          </div>
           <Button
-            disabled={!username || !password}
             label="Acessar"
-            handleClick={handleSubmit}
+            handleClick={handleSubmit(onSubmit)}
             color="Dark indigo"
           ></Button>
         </div>
