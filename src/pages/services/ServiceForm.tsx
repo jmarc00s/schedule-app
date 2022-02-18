@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from 'src/core/hooks/useToast';
 import Input from '../../components/Input';
@@ -7,14 +8,23 @@ import PageHeader from '../../components/PageHeader';
 import { useAxios } from '../../core/hooks/useAxios';
 import { ServiceModel } from '../../core/models/service.model';
 
+interface ServiceFormData {
+  description: string;
+}
+
 const ServiceForm = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { request, loading } = useAxios<ServiceModel | undefined>();
-  const [description, setDescription] = React.useState<string>('');
   const { showSuccessToast } = useToast();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ServiceFormData>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function getService(id: number) {
       const requestConfig: AxiosRequestConfig = {
         method: 'GET',
@@ -24,7 +34,8 @@ const ServiceForm = () => {
       const data = await request(requestConfig);
 
       if (data) {
-        setDescription(data.description);
+        const { description } = data;
+        reset({ description });
       }
     }
 
@@ -33,15 +44,15 @@ const ServiceForm = () => {
     }
   }, [params.id]);
 
-  function handleSaveClick() {
+  function onSubmit({ description }: ServiceFormData) {
     if (params.id) {
-      _editService();
+      _editService(description);
       return;
     }
-    _createNewService();
+    _createNewService(description);
   }
 
-  async function _editService() {
+  async function _editService(description: string) {
     const service = {
       id: params.id,
       description,
@@ -61,7 +72,7 @@ const ServiceForm = () => {
     }
   }
 
-  async function _createNewService() {
+  async function _createNewService(description: string) {
     const service = {
       description,
     };
@@ -86,16 +97,17 @@ const ServiceForm = () => {
         title={params?.id ? 'Editando serviço' : 'Adicionando serviço'}
         btnText="Salvar"
         showProgress={false}
-        handleBtnClick={() => handleSaveClick()}
-        disableBtn={!description.length}
+        handleBtnClick={handleSubmit(onSubmit)}
+        disableBtn={!!errors.description}
       />
       <div className="mt-5">
         <Input
-          label="Descrição"
-          value={description}
-          onChange={({ target }) => setDescription(target.value)}
+          register={register}
+          name="description"
           placeholder="Descrição"
           disabled={loading}
+          validation={{ required: true }}
+          errors={errors.description}
         />
       </div>
     </section>

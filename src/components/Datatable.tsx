@@ -59,9 +59,9 @@ const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
   }
 
   return (
-    <div className="shadow border-b border-gray-200 rounded-sm">
+    <div className="shadow border-b border-gray-200 rounded-sm ">
       <table className="min-w-full table-auto">
-        <thead className="bg-indigo-600 text-gray-50 mb-5">
+        <thead className="bg-indigo-600 text-gray-50 mb-5 ">
           <tr>
             {columns.map((column, index) => (
               <th

@@ -7,7 +7,7 @@ import { AuthProvider } from './core/context/AuthContext';
 
 function App() {
   return (
-    <main className="w-screen h-screen">
+    <main className="flex flex-auto flex-col w-full min-w-0">
       <ToastContainer
         autoClose={2000}
         closeButton={true}

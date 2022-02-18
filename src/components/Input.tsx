@@ -10,12 +10,16 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({ label, register, name, errors, validation, ...props }: InputProps) => {
+  const errorClasses = `border-2 border-red-500 focus:ring-red-500`;
+
   function renderInput() {
     if (register) {
       return (
         <input
           id={name}
-          className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
+          className={`w-full p-4 border rounded outline-none focus:ring-2 ${
+            errors ? errorClasses : 'focus:ring-indigo-600'
+          }`}
           {...register(name, validation)}
           {...props}
         />
