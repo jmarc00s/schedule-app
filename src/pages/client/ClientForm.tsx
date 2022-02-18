@@ -7,17 +7,26 @@ import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 
 import { ClientModel } from '../../core/models/client.model';
-import Layout from '../../components/template/Layout';
 import { useToast } from 'src/core/hooks/useToast';
+import { useForm } from 'react-hook-form';
+
+interface clientFormData {
+  name: string;
+  address: string;
+}
 
 const ClientForm = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [client, setClient] = React.useState<ClientModel | undefined>(undefined);
   const { request, loading } = useAxios<ClientModel>();
-  const [name, setName] = React.useState<string>('');
-  const [address, setAddress] = React.useState<string>('');
   const { showSuccessToast } = useToast();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<clientFormData>();
 
   React.useEffect(() => {
     async function getClient(id: number) {
@@ -38,47 +47,36 @@ const ClientForm = () => {
     }
   }, [params.id]);
 
-  function formIsInvalid(): boolean {
-    const formValid = !!(name?.length && address?.length);
-    return !formValid;
-  }
-
-  function handleSaveClick(): void {
+  function onSubmit(data: clientFormData): void {
     if (client?.id) {
-      _editClient();
+      _editClient(data);
       return;
     }
-    _createNewClient();
+    _createNewClient(data);
   }
 
   function setClientData(client: ClientModel): void {
     const { name, address } = client;
     setClient(client);
-    setName(name);
-    setAddress(address);
+    reset({ name, address });
   }
 
-  async function _createNewClient() {
-    const client = {
-      name,
-      address,
-    };
-
+  async function _createNewClient(data: clientFormData) {
     const newClientRequest: AxiosRequestConfig = {
       url: '/clients',
       method: 'POST',
-      data: client,
+      data,
     };
 
-    const data = await request(newClientRequest);
+    const response = await request(newClientRequest);
 
-    if (data) {
+    if (response) {
       navigate('/clients');
       showSuccessToast('Cliente criado com sucesso!');
     }
   }
 
-  async function _editClient() {
+  async function _editClient({ name, address }: clientFormData) {
     const data = {
       id: client?.id,
       name,
@@ -104,29 +102,29 @@ const ClientForm = () => {
       <PageHeader
         title={params.id ? 'Editar cliente' : 'Adicionar cliente'}
         btnText="Salvar"
-        handleBtnClick={() => handleSaveClick()}
+        handleBtnClick={handleSubmit(onSubmit)}
         showProgress={loading}
-        disableBtn={formIsInvalid()}
+        disableBtn={!!errors.address || !!errors.name}
       />
-      <form className="flex flex-col gap-3 mt-2">
+      <form className="flex flex-col mt-2">
         <Input
-          label="Nome"
           placeholder="Nome"
-          value={name}
-          onChange={({ target }) => setName(target.value)}
+          register={register}
           disabled={loading}
-          name="nome"
-          id="nome"
+          name="name"
+          label="Nome"
+          validation={{ required: true }}
+          errors={errors.name}
         />
         <Input
-          name="address"
-          id="address"
           label="Endereço"
+          name="address"
           placeholder="Endereço"
-          onChange={({ target }) => setAddress(target.value)}
-          value={address}
+          register={register}
           maxLength={100}
           disabled={loading}
+          validation={{ required: true }}
+          errors={errors.address}
         />
       </form>
     </section>

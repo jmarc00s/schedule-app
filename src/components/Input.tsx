@@ -39,7 +39,7 @@ const Input = ({ label, register, name, errors, validation, ...props }: InputPro
     <>
       {label?.length && (
         <label
-          className="font-semibold uppercase text-sm pb-2 inline-block"
+          className="font-medium text-base inline-block text-gray-700 "
           htmlFor={name}
         >
           {label}

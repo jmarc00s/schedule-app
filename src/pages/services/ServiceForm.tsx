@@ -102,6 +102,7 @@ const ServiceForm = () => {
       />
       <div className="mt-5">
         <Input
+          label="Descrição"
           register={register}
           name="description"
           placeholder="Descrição"
