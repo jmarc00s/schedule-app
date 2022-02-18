@@ -18,7 +18,6 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<LoginFormData>({
     defaultValues: { username: '', password: '' },
@@ -47,12 +46,14 @@ const Login = () => {
             Realiza o login para acessar a aplicação
           </p>
         </div>
-        <div className="w-full flex flex-1 flex-col items-between ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex flex-1 flex-col items-between "
+        >
           <div className="mb-4">
             <Input
               required
               placeholder="Usuário"
-              defaultValue={''}
               register={register}
               name="username"
               errors={errors.username}
@@ -69,12 +70,8 @@ const Login = () => {
               validation={{ required: true }}
             />
           </div>
-          <Button
-            label="Acessar"
-            handleClick={handleSubmit(onSubmit)}
-            color="Dark indigo"
-          ></Button>
-        </div>
+          <Button type="submit" label="Acessar" color="Dark indigo"></Button>
+        </form>
       </div>
     </section>
   );
