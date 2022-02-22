@@ -63,10 +63,7 @@ const Select = ({
 
   return (
     <>
-      <label
-        htmlFor="select"
-        className="uppercase inline-block pb-2 font-semibold text-sm"
-      >
+      <label className="font-medium text-base inline-block text-gray-700 " htmlFor={name}>
         {label}
       </label>
       {renderSelect()}

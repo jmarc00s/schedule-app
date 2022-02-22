@@ -52,6 +52,12 @@ const Input = ({ label, register, name, errors, validation, ...props }: InputPro
           Campo obrigatório
         </span>
       )}
+
+      {errors?.type === 'pattern' && (
+        <span className="font-medium text-red-500 tracking-wide text-xs mt-1 ml-1">
+          Campo inválido
+        </span>
+      )}
     </>
   );
 };

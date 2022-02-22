@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from 'src/core/hooks/useToast';
+import { datePattern, hourPattern } from 'src/utils/regex';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import Select from '../../components/Select';
@@ -139,7 +140,7 @@ const ScheduleForm = () => {
               register={register}
               name="date"
               errors={errors.date}
-              validation={{ required: true }}
+              validation={{ required: true, pattern: datePattern }}
             />
           </div>
           <div className="w-full">
@@ -150,7 +151,7 @@ const ScheduleForm = () => {
               register={register}
               name="time"
               errors={errors.time}
-              validation={{ required: true }}
+              validation={{ required: true, pattern: hourPattern }}
             />
           </div>
         </div>
