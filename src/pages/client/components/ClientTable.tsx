@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import Button from '../../../components/Button';
-import Datatable, { ColumnDefinition } from '../../../components/Datatable';
+import Datatable, { ColumnDefinition } from '../../../components/datatable/Datatable';
 import { IconDelete } from '../../../components/icons/IconDelete';
 import { IconEdit } from '../../../components/icons/IconEdit';
 import { ClientModel } from '../../../core/models/client.model';

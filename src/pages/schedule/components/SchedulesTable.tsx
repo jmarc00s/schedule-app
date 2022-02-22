@@ -1,4 +1,4 @@
-import Datatable, { ColumnDefinition } from 'src/components/Datatable';
+import Datatable, { ColumnDefinition } from 'src/components/datatable/Datatable';
 import { useToast } from 'src/core/hooks/useToast';
 import Button from '../../../components/Button';
 import { IconCancel } from '../../../components/icons/IconCancel';
