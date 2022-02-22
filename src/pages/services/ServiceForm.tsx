@@ -94,7 +94,7 @@ const ServiceForm = () => {
   return (
     <section>
       <PageHeader
-        title={params?.id ? 'Editando serviço' : 'Adicionando serviço'}
+        title={params?.id ? 'Editar serviço' : 'Adicionar serviço'}
         btnText="Salvar"
         showProgress={false}
         handleBtnClick={handleSubmit(onSubmit)}

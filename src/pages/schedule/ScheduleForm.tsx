@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from 'src/core/hooks/useToast';
 import Input from '../../components/Input';
@@ -12,18 +13,14 @@ import { ServiceModel } from '../../core/models/service.model';
 
 interface ScheduleFormModel {
   client: ClientModel | undefined;
+  clientId: number;
   service: ServiceModel | undefined;
+  serviceId: number;
   date: string;
   time: string;
 }
 
 const ScheduleForm = () => {
-  const [form, setForm] = React.useState<ScheduleFormModel | undefined>({
-    date: new Date().toLocaleDateString(),
-    time: '',
-    client: undefined,
-    service: undefined,
-  });
   const [clients, setClients] = React.useState<ClientModel[]>([]);
   const [services, setServices] = React.useState<ServiceModel[]>([]);
   const { request: requestClients, loading: loadingClients } = useAxios<ClientModel[]>();
@@ -32,8 +29,15 @@ const ScheduleForm = () => {
   const { request, loading: saving, error } = useAxios<ScheduleModel>();
   const navigate = useNavigate();
   const { showSuccessToast } = useToast();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm<ScheduleFormModel>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function getClients() {
       const data = await requestClients({ url: '/clients' });
 
@@ -51,14 +55,35 @@ const ScheduleForm = () => {
 
     getClients();
     getServices();
+
+    const subscription = watch((value, { name, type }) => {
+      console.log(value);
+      if (type !== 'change') return;
+
+      if (name === 'clientId') {
+        const client = clients.find((client) => client.id === Number(value.clientId));
+        setValue('client', client);
+        return;
+      }
+
+      if (name === 'serviceId') {
+        const service = services.find(
+          (service) => service.id === Number(value?.serviceId)
+        );
+        setValue('service', service);
+        return;
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  async function handleSaveClick() {
+  async function onSubmit(data: ScheduleFormModel) {
     const schedule = {
-      ...form,
+      ...data,
       status: EStatusSchedule.PENDING,
-      clientId: form?.client?.id,
-      serviceId: form?.service?.id,
+      clientId: data?.client?.id,
+      serviceId: data?.service?.id,
     } as ScheduleModel;
 
     await request({ url: '/schedules', method: 'POST', data: schedule });
@@ -69,50 +94,52 @@ const ScheduleForm = () => {
     }
   }
 
-  function handleClientSelectChange(id: number) {
-    const client = clients.find((client) => client.id === id);
-    setForm({ ...form, client } as ScheduleFormModel);
-  }
-
-  function handleServiceSelectChange(id: number) {
-    const service = services.find((service) => service.id === id);
-    setForm({ ...form, service } as ScheduleFormModel);
-  }
-
   return (
     <section>
       <PageHeader
-        title="Adicionando horário"
+        title="Adicionar horário"
         showProgress={loadingClients || loadingServices || saving}
         btnText="Salvar"
-        handleBtnClick={handleSaveClick}
+        handleBtnClick={handleSubmit(onSubmit)}
       />
 
       <form className="flex flex-col mt-3">
-        <Select
-          property="name"
-          label="Cliente"
-          placeholder="Selecione um cliente"
-          values={clients}
-          handleSelectChange={(id) => handleClientSelectChange(id)}
-        />
-        <Select
-          property="description"
-          label="Serviço"
-          placeholder="Selecione um serviço"
-          values={services}
-          handleSelectChange={(id) => handleServiceSelectChange(id)}
-        />
+        <div className="flex flex-col md:flex-row ">
+          <div className="md:mr-5 w-full">
+            <Select
+              name="clientId"
+              property="name"
+              label="Cliente"
+              placeholder="Selecione um cliente"
+              values={clients}
+              register={register}
+              errors={errors.client}
+              validation={{ required: true }}
+            />
+          </div>
+          <div className="w-full">
+            <Select
+              name="serviceId"
+              property="description"
+              values={services}
+              label="Serviço"
+              placeholder="Selecione um serviço"
+              register={register}
+              errors={errors.service}
+              validation={{ required: true }}
+            />
+          </div>
+        </div>
         <div className="flex flex-col md:flex-row mt-3">
-          <div className="md:mr-5  w-full">
+          <div className="md:mr-5 w-full">
             <Input
               label="Data"
               disabled={saving}
               placeholder="DD/MM/YYYY"
-              value={form?.date}
-              onChange={({ target }) =>
-                setForm({ ...form, date: target.value } as ScheduleFormModel)
-              }
+              register={register}
+              name="date"
+              errors={errors.date}
+              validation={{ required: true }}
             />
           </div>
           <div className="w-full">
@@ -120,10 +147,10 @@ const ScheduleForm = () => {
               label="Horário"
               disabled={saving}
               placeholder="HH:mm"
-              value={form?.time}
-              onChange={({ target }) =>
-                setForm({ ...form, time: target.value } as ScheduleFormModel)
-              }
+              register={register}
+              name="time"
+              errors={errors.time}
+              validation={{ required: true }}
             />
           </div>
         </div>

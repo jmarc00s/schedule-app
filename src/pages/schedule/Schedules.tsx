@@ -35,14 +35,16 @@ const Schedules = () => {
         btnText="Adicionar horário"
         handleBtnClick={handleAddScheduleClick}
       />
-      {schedules.length ? (
-        <SchedulesTable
-          schedules={schedules}
-          setSchedules={(schedules) => setSchedules(schedules)}
-        />
-      ) : (
-        <p className="text-center mt-1">Não existem horários registrados.</p>
-      )}
+      <div style={{ height: '60vh', overflow: 'auto' }}>
+        {schedules.length ? (
+          <SchedulesTable
+            schedules={schedules}
+            setSchedules={(schedules) => setSchedules(schedules)}
+          />
+        ) : (
+          <p className="text-center mt-1">Não existem horários registrados.</p>
+        )}
+      </div>
     </section>
   );
 };
