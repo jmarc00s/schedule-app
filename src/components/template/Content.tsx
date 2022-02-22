@@ -6,7 +6,7 @@ interface ContentProps {
 
 const Content = ({ children }: ContentProps) => {
   return (
-    <section className="flex flex-col bg-gray-200 flex-1">
+    <section className="flex flex-col bg-gray-200 flex-1 relative">
       <div className="bg-gray-50 px-10 py-5 ">{children}</div>
     </section>
   );
