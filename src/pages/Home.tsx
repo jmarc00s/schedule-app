@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import AddScheduleDialog from 'src/components/AddScheduleDialog';
 import FabButton from 'src/components/FabButton';
 import { IconPlusSm } from 'src/components/icons/IconPlusSm';
 import useAuth from 'src/core/hooks/useAuth';
@@ -7,7 +8,8 @@ import { useAxios } from '../core/hooks/useAxios';
 import { ScheduleModel } from '../core/models/schedule.model';
 
 const Home = () => {
-  const [schedules, setSchedules] = React.useState<ScheduleModel[]>([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [schedules, setSchedules] = useState<ScheduleModel[]>([]);
   const { request } = useAxios<ScheduleModel[]>();
   const { user } = useAuth();
 
@@ -35,7 +37,8 @@ const Home = () => {
           ))}
         </ul>
       </Card>
-      <FabButton icon={IconPlusSm} onClick={() => console.log('clicked')} />
+      <FabButton icon={IconPlusSm} onClick={() => setOpenModal(true)} />
+      <AddScheduleDialog open={openModal} setOpen={setOpenModal} />
     </>
   );
 };
