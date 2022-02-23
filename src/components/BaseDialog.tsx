@@ -53,7 +53,7 @@ const BaseDialog = ({
           <div className="flex justify-end gap-2 px-5 pb-3">
             {showCloseButton && (
               <Button
-                color="normal"
+                color="Normal"
                 label={closeButtonLabel}
                 handleClick={closeDialog}
               ></Button>
