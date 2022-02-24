@@ -43,7 +43,6 @@ function ScheduleForm({ afterSubmit, submit, setSubmit }: ScheduleFormProps) {
   useEffect(() => {
     async function getClients() {
       const data = await requestClients({ url: '/clients' });
-      console.log(data);
       if (data) {
         setClients(data);
       }
@@ -58,19 +57,20 @@ function ScheduleForm({ afterSubmit, submit, setSubmit }: ScheduleFormProps) {
 
     getClients();
     getServices();
+  }, []);
 
+  useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (type !== 'change') return;
 
       if (name === 'clientId') {
-        const client = clients.find((client) => client.id === Number(value.clientId));
-        console.log(clients);
+        const client = clients?.find((client) => client.id === Number(value.clientId));
         setValue('client', client);
         return;
       }
 
       if (name === 'serviceId') {
-        const service = services.find(
+        const service = services?.find(
           (service) => service.id === Number(value?.serviceId)
         );
         setValue('service', service);
@@ -79,7 +79,7 @@ function ScheduleForm({ afterSubmit, submit, setSubmit }: ScheduleFormProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [clients.length, services.length]);
 
   useEffect(() => {
     if (submit) {
@@ -117,7 +117,7 @@ function ScheduleForm({ afterSubmit, submit, setSubmit }: ScheduleFormProps) {
             property="name"
             label="Cliente"
             placeholder="Selecione um cliente"
-            values={clients}
+            values={clients ?? []}
             register={register}
             errors={errors.client}
             validation={{ required: true }}
@@ -127,7 +127,7 @@ function ScheduleForm({ afterSubmit, submit, setSubmit }: ScheduleFormProps) {
           <Select
             name="serviceId"
             property="description"
-            values={services}
+            values={services ?? []}
             label="Serviço"
             placeholder="Selecione um serviço"
             register={register}
