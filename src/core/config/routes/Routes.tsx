@@ -4,7 +4,7 @@ import Layout from 'src/components/template/Layout';
 import Login from 'src/pages/Login';
 
 import Home from '../../../pages/Home';
-import ScheduleForm from '../../../pages/schedule/ScheduleForm';
+import ScheduleFormPage from '../../../pages/schedule/ScheduleFormPage';
 import Schedules from '../../../pages/schedule/Schedules';
 import ServiceForm from '../../../pages/services/ServiceForm';
 import Services from '../../../pages/services/Services';
@@ -73,7 +73,7 @@ const Router = () => {
           element={
             <ProtectedRoute>
               <React.Suspense fallback={<>...</>}>
-                <ScheduleForm />
+                <ScheduleFormPage />
               </React.Suspense>
             </ProtectedRoute>
           }
@@ -84,7 +84,7 @@ const Router = () => {
           element={
             <ProtectedRoute>
               <React.Suspense fallback={<>...</>}>
-                <ScheduleForm />
+                <ScheduleFormPage />
               </React.Suspense>
             </ProtectedRoute>
           }
