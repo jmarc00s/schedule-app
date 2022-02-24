@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ClientModel } from 'src/core/models/client.model';
 import { ServiceModel } from 'src/core/models/service.model';
@@ -27,11 +27,16 @@ function AddScheduleDialog({ open, onClose, setOpen }: AddScheduleDialogProps) {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<ScheduleFormModel>();
 
   function onSubmit(data: ScheduleFormModel) {
     console.log(data);
   }
+
+  useEffect(() => {
+    reset({});
+  }, [open]);
 
   return (
     <BaseDialog
