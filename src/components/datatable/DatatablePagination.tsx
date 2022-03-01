@@ -9,19 +9,15 @@ interface DatatablePaginationProps {
 const DatatablePagination = ({ pages, onPagination }: DatatablePaginationProps) => {
   const [page, setPage] = useState(1);
 
-  //   const pagesArray = useMemo(() => {
-  //     return Array.from(Array(pages).keys());
-  //   }, [pages]);
-
   function handleNextPageClick() {
     setPage((page) => page + 1);
-    onPagination(page);
+    onPagination(page + 1);
   }
 
   function handlePreviousPageClick() {
     if (page > 0) {
       setPage((page) => page - 1);
-      onPagination(page);
+      onPagination(page - 1);
     }
   }
 
