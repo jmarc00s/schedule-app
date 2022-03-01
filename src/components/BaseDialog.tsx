@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Dialog } from '@headlessui/react';
+import { ReactNode, Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import Button from './Button';
 
 export interface BaseDialogProps {
@@ -55,30 +55,52 @@ const BaseDialog = ({
   }
 
   return (
-    <Dialog
-      className={`fixed inset-0 z-10 overflow-y-auto`}
-      open={open}
-      onClose={onClose}
-    >
-      <div className="min-h-screen flex items-center justify-center">
-        <Dialog.Overlay
-          className={`fixed inset-0 bg-black opacity-50`}
-          onClick={closeDialog}
-        />
-        <div className="relative bg-white rounded-lg mx-auto my-auto w-1/3">
-          <Dialog.Title
-            as="h3"
-            className={`text-lg font-medium leading-6 text-white bg-indigo-800 rounded-t-lg flex items-center px-10 py-5 w-full`}
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog
+        className={`fixed inset-0 z-10 overflow-y-auto`}
+        open={open}
+        onClose={onClose}
+      >
+        <div className="min-h-screen flex items-center justify-center">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-200"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            {title}
-          </Dialog.Title>
-          <div className="px-5 py-3">{children}</div>
-          <div className="flex justify-end gap-2 px-5 pb-3">
-            {showLoading ? 'Carregando...' : renderButtons()}
-          </div>
+            <Dialog.Overlay
+              className={`fixed inset-0  bg-black bg-opacity-50 transition-opacity`}
+            />
+          </Transition.Child>
+
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="relative bg-white rounded-lg mx-auto my-auto w-1/3">
+              <Dialog.Title
+                as="h3"
+                className={`text-lg font-medium leading-6 text-white bg-indigo-800 rounded-t-lg flex items-center px-10 py-5 w-full`}
+              >
+                {title}
+              </Dialog.Title>
+              <div className="px-5 py-3">{children}</div>
+              <div className="flex justify-end gap-2 px-5 pb-3">
+                {showLoading ? 'Carregando...' : renderButtons()}
+              </div>
+            </div>
+          </Transition.Child>
         </div>
-      </div>
-    </Dialog>
+      </Dialog>
+    </Transition.Root>
   );
 };
 
