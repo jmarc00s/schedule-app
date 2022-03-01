@@ -3,15 +3,10 @@ import Button from '../Button';
 
 interface DatatablePaginationProps {
   pages: number;
-  onNextPage: (page: number) => void;
-  onPreviousPage: (page: number) => void;
+  onPagination: (page: number) => void;
 }
 
-const DatatablePagination = ({
-  pages,
-  onNextPage,
-  onPreviousPage,
-}: DatatablePaginationProps) => {
+const DatatablePagination = ({ pages, onPagination }: DatatablePaginationProps) => {
   const [page, setPage] = useState(1);
 
   //   const pagesArray = useMemo(() => {
@@ -20,29 +15,29 @@ const DatatablePagination = ({
 
   function handleNextPageClick() {
     setPage((page) => page + 1);
-    onNextPage(page);
+    onPagination(page);
   }
 
   function handlePreviousPageClick() {
     if (page > 0) {
       setPage((page) => page - 1);
-      onPreviousPage(page);
+      onPagination(page);
     }
   }
 
   return (
     <div className="w-full bg-gray-100 sticky bottom-0">
-      <div className="flex flex-1 justify-end items-center gap-2 p-2">
-        {/* {pagesArray.map((page) => (
-          <span>{page}</span>
-        ))} */}
-        <Button
-          color="Dark indigo"
-          handleClick={handlePreviousPageClick}
-          label="Anterior"
-          disabled={page === 1}
-        />
-        <Button color="Dark indigo" handleClick={handleNextPageClick} label="Próxima" />
+      <div className="flex flex-1 justify-between items-center p-2">
+        <span className="ml-4">Página {page}</span>
+        <div className="flex gap-2">
+          <Button
+            color="Dark indigo"
+            handleClick={handlePreviousPageClick}
+            label="Anterior"
+            disabled={page === 1}
+          />
+          <Button color="Dark indigo" handleClick={handleNextPageClick} label="Próxima" />
+        </div>
       </div>
     </div>
   );

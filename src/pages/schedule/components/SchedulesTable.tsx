@@ -7,16 +7,13 @@ import { IconCheck } from '../../../components/icons/IconCheck';
 import { EStatusSchedule } from '../../../core/enum/status-schedule.enum';
 import { useAxios } from '../../../core/hooks/useAxios';
 import { ScheduleModel } from '../../../core/models/schedule.model';
+import useSchedules from '../hooks/useSchedules';
 import ScheduleTag from './ScheduleTag';
 
-interface SchedulesTableProps {
-  schedules: ScheduleModel[];
-  setSchedules: (schedules: ScheduleModel[]) => void;
-}
-
-const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
+const SchedulesTable = () => {
   const { request, error } = useAxios<ScheduleModel>();
   const { showSuccessToast, showDefaultToast } = useToast();
+  const { schedules, setSchedules, fetchSchedules } = useSchedules();
 
   const columns: ColumnDefinition[] = [
     {
@@ -106,13 +103,10 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
   }
 
   return (
-    <Datatable columns={columns} datasource={schedules}>
-      <DatatablePagination
-        pages={10}
-        onNextPage={(page) => console.log('next::: ' + page)}
-        onPreviousPage={(page) => console.log('previous:::' + page)}
-      />
-    </Datatable>
+    <>
+      <Datatable columns={columns} datasource={schedules} />
+      <DatatablePagination pages={10} onPagination={(page) => fetchSchedules(page)} />
+    </>
   );
 };
 

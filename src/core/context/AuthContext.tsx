@@ -32,7 +32,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { request, loading } = useAxios<UserModel[]>();
   const { openDialog } = useConfirmation();
   const { setItem, getItem } = useLocalStorage('user');
-  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getItem();
@@ -40,7 +39,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (user) {
       setUser(user);
       setIsAuthenticated(true);
-      navigate('/');
     }
   }, []);
 
