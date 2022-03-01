@@ -11,10 +11,12 @@ const Schedules = () => {
   const [openModal, setOpenModal] = useState(false);
   const [schedules, setSchedules] = useState<ScheduleModel[]>([]);
   const { request, loading } = useAxios<ScheduleModel[]>();
-  const navigate = useNavigate();
 
-  async function getSchedules() {
-    const data = await request({ url: '/schedules', method: 'GET' });
+  async function getSchedules(page: number = 1, limit: number = 10) {
+    const data = await request({
+      url: `/schedules?_page=${page}&_limit=${limit}`,
+      method: 'GET',
+    });
 
     if (data) {
       setSchedules(data);

@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import DatatableBody from './DatatableBody';
 import DatatableHead from './DatatableHead';
+import DatatablePagination from './DatatablePagination';
 
 export type ColumnType = 'text' | 'action' | 'element';
 
@@ -17,11 +18,12 @@ interface DatatableProps {
   columns: ColumnDefinition[];
   datasource: any[];
   idProperty?: string;
+  children?: any;
 }
 
-const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
+const Datatable = ({ columns, datasource, idProperty, children }: DatatableProps) => {
   return (
-    <div className="shadow border-b border-gray-200 rounded-sm ">
+    <div className="shadow border-b border-gray-200 rounded-sm">
       <table className="min-w-full table-auto">
         <DatatableHead columns={columns} />
         <DatatableBody
@@ -30,6 +32,7 @@ const Datatable = ({ columns, datasource, idProperty }: DatatableProps) => {
           idProperty={idProperty}
         />
       </table>
+      {children}
     </div>
   );
 };

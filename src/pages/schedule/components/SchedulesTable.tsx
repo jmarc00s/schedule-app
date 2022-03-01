@@ -1,4 +1,5 @@
 import Datatable, { ColumnDefinition } from 'src/components/datatable/Datatable';
+import DatatablePagination from 'src/components/datatable/DatatablePagination';
 import { useToast } from 'src/core/hooks/useToast';
 import Button from '../../../components/Button';
 import { IconCancel } from '../../../components/icons/IconCancel';
@@ -104,7 +105,15 @@ const SchedulesTable = ({ schedules, setSchedules }: SchedulesTableProps) => {
     }
   }
 
-  return <Datatable columns={columns} datasource={schedules} />;
+  return (
+    <Datatable columns={columns} datasource={schedules}>
+      <DatatablePagination
+        pages={10}
+        onNextPage={(page) => console.log('next::: ' + page)}
+        onPreviousPage={(page) => console.log('previous:::' + page)}
+      />
+    </Datatable>
+  );
 };
 
 export default SchedulesTable;
