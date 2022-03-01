@@ -4,6 +4,7 @@ import { ScheduleModel } from 'src/core/models/schedule.model';
 
 interface SchedulesContextProps {
   schedules: ScheduleModel[];
+  totalSchedules: number;
   setSchedules: (schedules: ScheduleModel[]) => void;
   loading: boolean;
   fetchSchedules: (page?: number, limit?: number) => void;
@@ -11,6 +12,7 @@ interface SchedulesContextProps {
 
 const SchedulesContext = createContext<SchedulesContextProps>({
   schedules: [],
+  totalSchedules: 0,
   setSchedules: () => {},
   loading: false,
   fetchSchedules: () => {},
@@ -22,16 +24,18 @@ interface SchedulesContextProviderProps {
 
 export function SchedulesProvider({ children }: SchedulesContextProviderProps) {
   const [schedules, setSchedules] = useState<ScheduleModel[]>([]);
-  const { request, loading } = useAxios<ScheduleModel[]>();
+  const { requestWithResponse, loading } = useAxios<ScheduleModel[]>();
+  const [totalSchedules, setTotalSchedules] = useState(0);
 
   async function fetchSchedules(page: number = 1, limit: number = 10) {
-    const data = await request({
+    const response = await requestWithResponse({
       url: `/schedules?_page=${page}&_limit=${limit}`,
       method: 'GET',
     });
 
-    if (data) {
-      setSchedules(data);
+    if (response) {
+      setSchedules(response.data);
+      setTotalSchedules(Number(response.headers['x-total-count']));
     }
   }
 
@@ -41,7 +45,7 @@ export function SchedulesProvider({ children }: SchedulesContextProviderProps) {
 
   return (
     <SchedulesContext.Provider
-      value={{ schedules, fetchSchedules, loading, setSchedules }}
+      value={{ schedules, fetchSchedules, loading, setSchedules, totalSchedules }}
     >
       {children}
     </SchedulesContext.Provider>

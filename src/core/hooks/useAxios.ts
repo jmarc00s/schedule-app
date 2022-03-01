@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from './useToast';
@@ -45,5 +45,25 @@ export function useAxios<T>() {
     }
   };
 
-  return { data, loading, error, request };
+  const requestWithResponse = async (
+    options: AxiosRequestConfig
+  ): Promise<AxiosResponse | undefined> => {
+    setError('');
+
+    try {
+      setLoading(true);
+      const response = await axios(options);
+      setData(response.data);
+      return response;
+    } catch (error: any) {
+      const { response } = error;
+      if (response) {
+        handleResponseError(response.status);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { data, loading, error, request, requestWithResponse };
 }

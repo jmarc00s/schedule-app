@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Button from '../Button';
 
 interface DatatablePaginationProps {
-  pages: number;
+  total: number;
   onPagination: (page: number) => void;
 }
 
-const DatatablePagination = ({ pages, onPagination }: DatatablePaginationProps) => {
+const DatatablePagination = ({ total, onPagination }: DatatablePaginationProps) => {
   const [page, setPage] = useState(1);
+  const [totalPages] = useState(Math.ceil(total / 10));
 
   function handleNextPageClick() {
     setPage((page) => page + 1);
@@ -32,7 +33,12 @@ const DatatablePagination = ({ pages, onPagination }: DatatablePaginationProps) 
             label="Anterior"
             disabled={page === 1}
           />
-          <Button color="Dark indigo" handleClick={handleNextPageClick} label="Próxima" />
+          <Button
+            color="Dark indigo"
+            handleClick={handleNextPageClick}
+            label="Próxima"
+            disabled={page === totalPages}
+          />
         </div>
       </div>
     </div>

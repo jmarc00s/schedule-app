@@ -13,7 +13,7 @@ import ScheduleTag from './ScheduleTag';
 const SchedulesTable = () => {
   const { request, error } = useAxios<ScheduleModel>();
   const { showSuccessToast, showDefaultToast } = useToast();
-  const { schedules, setSchedules, fetchSchedules } = useSchedules();
+  const { schedules, setSchedules, fetchSchedules, totalSchedules } = useSchedules();
 
   const columns: ColumnDefinition[] = [
     {
@@ -105,7 +105,10 @@ const SchedulesTable = () => {
   return (
     <>
       <Datatable columns={columns} datasource={schedules} />
-      <DatatablePagination pages={10} onPagination={(page) => fetchSchedules(page)} />
+      <DatatablePagination
+        total={totalSchedules}
+        onPagination={(page) => fetchSchedules(page)}
+      />
     </>
   );
 };

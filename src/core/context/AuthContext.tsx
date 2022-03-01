@@ -5,7 +5,7 @@ import useConfirmation from '../hooks/useConfirmation';
 import md5 from 'md5';
 import { useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   logout: () => void;
@@ -32,13 +32,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { request, loading } = useAxios<UserModel[]>();
   const { openDialog } = useConfirmation();
   const { setItem, getItem } = useLocalStorage('user');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getItem();
+    const { pathname } = location;
 
     if (user) {
       setUser(user);
       setIsAuthenticated(true);
+      navigate(pathname);
     }
   }, []);
 
