@@ -48,12 +48,16 @@ const DatatableBody = ({ datasource, columns, idProperty }: DatatableBodyProps) 
     );
   }
 
+  function isOdd(index: number) {
+    return index % 2 === 1;
+  }
+
   return (
     <tbody className="divide-y divide-gray-200">
       {datasource.map((data, index) => (
         <tr
           key={index}
-          className={`${index % 2 === 1 ? 'bg-indigo-100' : ''} font-light text-lg`}
+          className={`${isOdd(index) && 'bg-indigo-100'} font-light text-lg`}
         >
           {renderTableData(data)}
         </tr>
