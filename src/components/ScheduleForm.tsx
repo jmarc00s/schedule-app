@@ -109,56 +109,52 @@ function ScheduleForm({ afterSubmit, submit, setSubmit }: ScheduleFormProps) {
   }
 
   return (
-    <form className="flex flex-col mt-3">
-      <div className="flex flex-col md:flex-row ">
-        <div className="md:mr-5 w-full">
-          <Select
-            name="clientId"
-            property="name"
-            label="Cliente"
-            placeholder="Selecione um cliente"
-            values={clients ?? []}
-            register={register}
-            errors={errors.client}
-            validation={{ required: true }}
-          />
-        </div>
-        <div className="w-full">
-          <Select
-            name="serviceId"
-            property="description"
-            values={services ?? []}
-            label="Serviço"
-            placeholder="Selecione um serviço"
-            register={register}
-            errors={errors.service}
-            validation={{ required: true }}
-          />
-        </div>
+    <form className="flex flex-col mt-3 gap-3">
+      <div className="md:mr-5 w-full">
+        <Select
+          name="clientId"
+          property="name"
+          label="Cliente"
+          placeholder="Selecione um cliente"
+          values={clients ?? []}
+          register={register}
+          errors={errors.client}
+          validation={{ required: true }}
+        />
       </div>
-      <div className="flex flex-col md:flex-row mt-3">
-        <div className="md:mr-5 w-full">
-          <Input
-            label="Data"
-            disabled={saving}
-            placeholder="DD/MM/YYYY"
-            register={register}
-            name="date"
-            errors={errors.date}
-            validation={{ required: true, pattern: datePattern }}
-          />
-        </div>
-        <div className="w-full">
-          <Input
-            label="Horário"
-            disabled={saving}
-            placeholder="HH:mm"
-            register={register}
-            name="time"
-            errors={errors.time}
-            validation={{ required: true, pattern: hourPattern }}
-          />
-        </div>
+      <div className="w-full">
+        <Select
+          name="serviceId"
+          property="description"
+          values={services ?? []}
+          label="Serviço"
+          placeholder="Selecione um serviço"
+          register={register}
+          errors={errors.service}
+          validation={{ required: true }}
+        />
+      </div>
+      <div className="md:mr-5 w-full">
+        <Input
+          label="Data"
+          disabled={saving}
+          placeholder="DD/MM/YYYY"
+          register={register}
+          name="date"
+          errors={errors.date}
+          validation={{ required: true, pattern: datePattern }}
+        />
+      </div>
+      <div className="w-full">
+        <Input
+          label="Horário"
+          disabled={saving}
+          placeholder="HH:mm"
+          register={register}
+          name="time"
+          errors={errors.time}
+          validation={{ required: true, pattern: hourPattern }}
+        />
       </div>
     </form>
   );

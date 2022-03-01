@@ -10,11 +10,13 @@ interface AddScheduleDialogProps {
 
 function AddScheduleDialog({ open, onClose, setOpen }: AddScheduleDialogProps) {
   const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function handleAfterSubmit(success: boolean) {
     setSubmit(false);
     if (success) {
       setOpen(false);
+      onClose && onClose();
     }
   }
 
@@ -26,6 +28,7 @@ function AddScheduleDialog({ open, onClose, setOpen }: AddScheduleDialogProps) {
       setOpen={setOpen}
       confirmButtonLabel="Salvar"
       onConfirm={() => setSubmit(true)}
+      showLoading={loading}
     >
       <ScheduleForm
         afterSubmit={handleAfterSubmit}

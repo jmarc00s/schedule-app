@@ -1,5 +1,6 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AddScheduleDialog from 'src/components/AddScheduleDialog';
 import PageHeader from '../../components/PageHeader';
 
 import { useAxios } from '../../core/hooks/useAxios';
@@ -7,24 +8,30 @@ import { ScheduleModel } from '../../core/models/schedule.model';
 import SchedulesTable from './components/SchedulesTable';
 
 const Schedules = () => {
-  const [schedules, setSchedules] = React.useState<ScheduleModel[]>([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [schedules, setSchedules] = useState<ScheduleModel[]>([]);
   const { request, loading } = useAxios<ScheduleModel[]>();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    async function getSchedules() {
-      const data = await request({ url: '/schedules', method: 'GET' });
+  async function getSchedules() {
+    const data = await request({ url: '/schedules', method: 'GET' });
 
-      if (data) {
-        setSchedules(data);
-      }
+    if (data) {
+      setSchedules(data);
     }
+  }
 
+  useEffect(() => {
     getSchedules();
   }, []);
 
   function handleAddScheduleClick() {
-    navigate('/schedules/add');
+    setOpenModal(true);
+  }
+
+  function handleScheduleDialogClose() {
+    console.log('onclose');
+    getSchedules();
   }
 
   return (
@@ -45,6 +52,11 @@ const Schedules = () => {
           <p className="text-center mt-1">Não existem horários registrados.</p>
         )}
       </div>
+      <AddScheduleDialog
+        open={openModal}
+        setOpen={setOpenModal}
+        onClose={handleScheduleDialogClose}
+      />
     </section>
   );
 };

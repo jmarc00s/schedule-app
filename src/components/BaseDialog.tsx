@@ -62,7 +62,7 @@ const BaseDialog = ({
     >
       <div className="min-h-screen flex items-center justify-center">
         <Dialog.Overlay
-          className={`fixed inset-0 bg-black opacity-30`}
+          className={`fixed inset-0 bg-black opacity-50`}
           onClick={closeDialog}
         />
         <div className="relative bg-white rounded-lg mx-auto my-auto w-1/3">
