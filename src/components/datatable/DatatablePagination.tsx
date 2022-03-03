@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Button from '../Button';
 
 interface DatatablePaginationProps {
@@ -8,7 +8,8 @@ interface DatatablePaginationProps {
 
 const DatatablePagination = ({ total, onPagination }: DatatablePaginationProps) => {
   const [page, setPage] = useState(1);
-  const [totalPages] = useState(Math.ceil(total / 10));
+
+  const totalPages = useMemo(() => Math.ceil(total / 10), [total]);
 
   function handleNextPageClick() {
     setPage((page) => page + 1);
