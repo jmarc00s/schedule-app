@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScheduleModel } from 'src/core/models/schedule.model';
-import Card from './Card';
+import Card from '../Card';
 
 interface ScheduleCardProps {
   schedules: ScheduleModel[];
