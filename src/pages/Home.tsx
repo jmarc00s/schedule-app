@@ -15,15 +15,15 @@ const Home = () => {
   const [schedules, setSchedules] = useState<ScheduleModel[]>([]);
   const { request } = useAxios<ScheduleModel[]>();
 
-  useEffect(() => {
-    async function getSchedules() {
-      const response = await request({ url: '/schedules' });
+  async function getSchedules() {
+    const response = await request({ url: `/schedules` });
 
-      if (response) {
-        setSchedules(response);
-      }
+    if (response) {
+      setSchedules(response);
     }
+  }
 
+  useEffect(() => {
     getSchedules();
   }, []);
 
@@ -40,9 +40,21 @@ const Home = () => {
     [schedules]
   );
 
+  const nextSchedules = useMemo(() => {
+    const currentDate = new Date();
+
+    return schedules.filter(({ date }) => {
+      const day = Number(date.substring(0, 2));
+      const month = Number(date.substring(3, 5)) - 1;
+      const year = Number(date.substring(6, 10));
+
+      return new Date(year, month, day) >= currentDate;
+    });
+  }, [schedules]);
+
   return (
     <>
-      <PageHeader title="Dashboard" showProgress={false} handleBtnClick={() => {}} />
+      <PageHeader title="Início" />
       <section className="flex lg:flex-row flex-col gap-3">
         <div className="w-2/3 flex flex-col">
           <div className="w-full">
@@ -63,16 +75,21 @@ const Home = () => {
                   value={schedulesPending}
                   variant="blue"
                 />
+                <DashboardCard
+                  title="Não realizados"
+                  value={schedulesPending}
+                  variant="orange"
+                />
               </div>
             </Card>
           </div>
         </div>
         <div className="flex-1">
-          <ScheduleCard schedules={schedules} />
+          <ScheduleCard schedules={nextSchedules} />
         </div>
       </section>
       <FabButton icon={IconPlusSm} onClick={() => setOpenModal(true)} />
-      <AddScheduleDialog open={openModal} setOpen={setOpenModal} />
+      <AddScheduleDialog open={openModal} setOpen={setOpenModal} onClose={getSchedules} />
     </>
   );
 };
