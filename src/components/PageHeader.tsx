@@ -4,18 +4,18 @@ import ProgressBar from './ProgressBar';
 
 interface PageHeaderProps {
   title: string;
-  showProgress: boolean;
+  showProgress?: boolean;
   btnText?: string;
   btnIcon?: ReactNode;
   disableBtn?: boolean;
-  handleBtnClick: () => void;
+  handleBtnClick?: () => void;
 }
 
 const PageHeader = ({
   title,
   handleBtnClick,
   btnText,
-  showProgress,
+  showProgress = false,
   disableBtn,
 }: PageHeaderProps) => {
   return (

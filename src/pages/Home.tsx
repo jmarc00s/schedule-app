@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import AddScheduleDialog from 'src/components/AddScheduleDialog';
 import FabButton from 'src/components/FabButton';
 import { IconPlusSm } from 'src/components/icons/IconPlusSm';
-import useAuth from 'src/core/hooks/useAuth';
-import Card from '../components/Card';
+import PageHeader from 'src/components/PageHeader';
+import ScheduleCard from 'src/components/ScheduleCard';
 import { useAxios } from '../core/hooks/useAxios';
 import { ScheduleModel } from '../core/models/schedule.model';
 
@@ -11,7 +11,6 @@ const Home = () => {
   const [openModal, setOpenModal] = useState(false);
   const [schedules, setSchedules] = useState<ScheduleModel[]>([]);
   const { request } = useAxios<ScheduleModel[]>();
-  const { user } = useAuth();
 
   useEffect(() => {
     async function getSchedules() {
@@ -27,16 +26,13 @@ const Home = () => {
 
   return (
     <>
-      <Card title="Próximos horários">
-        <ul>
-          {schedules.map((schedule) => (
-            <li key={schedule.id}>
-              {schedule.client?.name} - {schedule.service?.description} - {schedule.date}{' '}
-              - {schedule.time}
-            </li>
-          ))}
-        </ul>
-      </Card>
+      <PageHeader title="Dashboard" showProgress={false} handleBtnClick={() => {}} />
+      <section className="flex lg:flex-row flex-col gap-3">
+        <div className="w-3/4"></div>
+        <div className="flex-1">
+          <ScheduleCard schedules={schedules} />
+        </div>
+      </section>
       <FabButton icon={IconPlusSm} onClick={() => setOpenModal(true)} />
       <AddScheduleDialog open={openModal} setOpen={setOpenModal} />
     </>
