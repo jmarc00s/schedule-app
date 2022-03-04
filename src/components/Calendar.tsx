@@ -51,10 +51,6 @@ const weekDays: WeekDay[] = [
   },
 ];
 
-const CalendarRow = (props: any) => {
-  return <tr className="border-b">{props.children}</tr>;
-};
-
 const Calendar = () => {
   const currentDate = new Date();
   const monthYear = format(currentDate, 'MMMM yyyy', { locale: ptBR });
@@ -63,7 +59,7 @@ const Calendar = () => {
 
   function renderWeeks() {
     let rows: ReactNode[] = [];
-    const thClasses = `h-24 w-10 text-xs text-gray-400 border-r hover:bg-gray-100 transition-all duration-75 cursor-pointer`;
+    const thClasses = `h-24 w-10 text-xs text-gray-400 border-r`;
 
     for (let week = 0; week < weeksInMonth; week++) {
       const dateInWeek = addWeeks(firstDayOfMonth, week);
@@ -75,14 +71,24 @@ const Calendar = () => {
         const isFirstOrLastWeek = week === 0 || week === weeksInMonth - 1;
 
         if (isFirstOrLastWeek && !isSameMonth(date, currentDate)) {
-          days.push(<th className={classNames(thClasses)}></th>);
+          days.push(<th className={classNames(thClasses, day === 0 && 'border-l')}></th>);
           continue;
         }
 
-        days.push(<th className={classNames(thClasses)}>{format(date, 'dd')}</th>);
+        days.push(
+          <th
+            className={classNames(
+              thClasses,
+              `hover:bg-gray-100 transition-all duration-75 cursor-pointer`,
+              day === 0 && 'border-l'
+            )}
+          >
+            {format(date, 'dd')}
+          </th>
+        );
       }
 
-      rows = [...rows, <CalendarRow>{days}</CalendarRow>];
+      rows = [...rows, <tr className="border-b">{days}</tr>];
     }
 
     return <>{rows}</>;
