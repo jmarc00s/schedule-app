@@ -9,6 +9,7 @@ import { ScheduleModel } from '../core/models/schedule.model';
 import DashboardCard from 'src/components/dashboard/DashboardCard';
 import Card from 'src/components/Card';
 import { EStatusSchedule } from 'src/core/enum/status-schedule.enum';
+import Calendar from 'src/components/Calendar';
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -27,15 +28,15 @@ const Home = () => {
     getSchedules();
   }, []);
 
-  const schedulesCanceled = useMemo(
+  const canceledSchedules = useMemo(
     () => schedules.filter((c) => c.status === EStatusSchedule.CANCELED).length,
     [schedules]
   );
-  const schedulesCompleted = useMemo(
+  const confirmedSchedules = useMemo(
     () => schedules.filter((c) => c.status === EStatusSchedule.CONFIRMED).length,
     [schedules]
   );
-  const schedulesPending = useMemo(
+  const pendingSchedules = useMemo(
     () => schedules.filter((c) => c.status === EStatusSchedule.PENDING).length,
     [schedules]
   );
@@ -56,29 +57,30 @@ const Home = () => {
     <>
       <PageHeader title="Início" />
       <section className="flex lg:flex-row flex-col gap-3">
-        <div className="w-2/3 flex flex-col">
+        <div className="w-2/3 flex flex-col gap-3">
           <div className="w-full">
             <Card title="Atendimentos">
               <div className="flex gap-10">
+                <DashboardCard title="Realizados" value={0} variant="blue" />
                 <DashboardCard
-                  title="Realizados"
-                  value={schedulesCompleted}
+                  title="Confirmados"
+                  value={confirmedSchedules}
                   variant="green"
                 />
                 <DashboardCard
                   title="Cancelados"
-                  value={schedulesCanceled}
+                  value={canceledSchedules}
                   variant="red"
                 />
                 <DashboardCard
                   title="Pendentes"
-                  value={schedulesPending}
-                  variant="blue"
+                  value={pendingSchedules}
+                  variant="orange"
                 />
-                <DashboardCard title="Não realizados" value={0} variant="orange" />
               </div>
             </Card>
           </div>
+          <Calendar />
         </div>
         <div className="flex-1">
           <ScheduleCard schedules={nextSchedules} />

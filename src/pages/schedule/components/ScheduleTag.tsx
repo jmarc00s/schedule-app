@@ -11,7 +11,7 @@ const ScheduleTag = ({ status }: ScheduleTagProps) => {
 
   const colorClasses = {
     'bg-green-300 text-green-900': status === EStatusSchedule.CONFIRMED,
-    'bg-blue-300 text-blue-900': status === EStatusSchedule.PENDING,
+    'bg-yellow-500 text-yellow-900': status === EStatusSchedule.PENDING,
     'bg-red-300 text-red-900': status === EStatusSchedule.CANCELED,
   };
 
