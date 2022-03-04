@@ -7,7 +7,7 @@ import { IconCheck } from '../../../components/icons/IconCheck';
 import { EStatusSchedule } from '../../../core/enum/status-schedule.enum';
 import { useAxios } from '../../../core/hooks/useAxios';
 import { ScheduleModel } from '../../../core/models/schedule.model';
-import useSchedules from '../hooks/useSchedules';
+import useSchedules from '../../../core/hooks/useSchedules';
 import ScheduleTag from './ScheduleTag';
 
 const SchedulesTable = () => {

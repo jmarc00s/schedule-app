@@ -4,6 +4,7 @@ import Router from './core/config/routes/Routes';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import { AuthProvider } from './core/context/AuthContext';
+import { SchedulesProvider } from './core/context/SchedulesContext';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
       />
       <BrowserRouter>
         <AuthProvider>
-          <Router />
+          <SchedulesProvider>
+            <Router />
+          </SchedulesProvider>
         </AuthProvider>
       </BrowserRouter>
     </main>

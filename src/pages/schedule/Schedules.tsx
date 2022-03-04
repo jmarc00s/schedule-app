@@ -2,8 +2,8 @@ import { useState } from 'react';
 import AddScheduleDialog from 'src/components/AddScheduleDialog';
 import PageHeader from '../../components/PageHeader';
 import SchedulesTable from './components/SchedulesTable';
-import { SchedulesProvider } from './context/SchedulesContext';
-import useSchedules from './hooks/useSchedules';
+import { SchedulesProvider } from '../../core/context/SchedulesContext';
+import useSchedules from '../../core/hooks/useSchedules';
 
 const Schedules = () => {
   const [openModal, setOpenModal] = useState(false);
