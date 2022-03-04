@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Button from './Button';
 import Card from './Card';
-import { format } from 'date-fns';
+import {
+  addDays,
+  addWeeks,
+  format,
+  getDaysInMonth,
+  getWeeksInMonth,
+  isSameMonth,
+  lastDayOfWeek,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import classNames from 'classnames';
 
 interface WeekDay {
   name: string;
@@ -40,18 +51,48 @@ const weekDays: WeekDay[] = [
   },
 ];
 
+const CalendarRow = (props: any) => {
+  return <tr className="border-b">{props.children}</tr>;
+};
+
 const Calendar = () => {
   const currentDate = new Date();
-  const currentMonth = format(currentDate, 'MMMM', { locale: ptBR });
-  const currentYear = currentDate.getFullYear();
+  const monthYear = format(currentDate, 'MMMM yyyy', { locale: ptBR });
+  const weeksInMonth = getWeeksInMonth(currentDate);
+  const firstDayOfMonth = startOfMonth(currentDate);
+
+  function renderWeeks() {
+    let rows: ReactNode[] = [];
+    const thClasses = `h-24 w-10 text-xs text-gray-400 border-r hover:bg-gray-100 transition-all duration-75 cursor-pointer`;
+
+    for (let week = 0; week < weeksInMonth; week++) {
+      const dateInWeek = addWeeks(firstDayOfMonth, week);
+      const dateStartOfWeek = startOfWeek(dateInWeek);
+      const days: ReactNode[] = [];
+
+      for (let day = 0; day < 7; day++) {
+        const date = addDays(dateStartOfWeek, day);
+        const isFirstOrLastWeek = week === 0 || week === weeksInMonth - 1;
+
+        if (isFirstOrLastWeek && !isSameMonth(date, currentDate)) {
+          days.push(<th className={classNames(thClasses)}></th>);
+          continue;
+        }
+
+        days.push(<th className={classNames(thClasses)}>{format(date, 'dd')}</th>);
+      }
+
+      rows = [...rows, <CalendarRow>{days}</CalendarRow>];
+    }
+
+    return <>{rows}</>;
+  }
 
   return (
     <Card title="Calendário">
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <span className="text-lg font-bold text-gray-600 capitalize">
-            {currentMonth} {currentYear}
-          </span>
+          <span className="text-lg font-bold text-gray-600 capitalize">{monthYear}</span>
           <Button color="Dark indigo" label="Adicionar horário" />
         </div>
         <table className="w-full">
@@ -69,7 +110,7 @@ const Calendar = () => {
               ))}
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>{renderWeeks()}</tbody>
         </table>
       </section>
     </Card>

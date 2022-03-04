@@ -58,7 +58,7 @@ const Home = () => {
       <PageHeader title="Início" />
       <section className="flex lg:flex-row flex-col gap-3">
         <div className="w-2/3 flex flex-col gap-3">
-          <div className="w-full">
+          {/* <div className="w-full">
             <Card title="Atendimentos">
               <div className="flex gap-10">
                 <DashboardCard title="Realizados" value={0} variant="blue" />
@@ -79,7 +79,7 @@ const Home = () => {
                 />
               </div>
             </Card>
-          </div>
+          </div> */}
           <Calendar />
         </div>
         <div className="flex-1">
