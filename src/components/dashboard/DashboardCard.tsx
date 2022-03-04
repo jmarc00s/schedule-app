@@ -9,7 +9,7 @@ interface DashboardCardProps {
 
 const DashboardCard = ({ title, value, variant }: DashboardCardProps) => {
   const textClass = {
-    'text-green-500': variant === 'green',
+    'text-green-700': variant === 'green',
     'text-red-500': variant === 'red',
     'text-yellow-600': variant === 'orange',
     'text-blue-500': variant === 'blue',

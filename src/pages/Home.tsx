@@ -75,11 +75,7 @@ const Home = () => {
                   value={schedulesPending}
                   variant="blue"
                 />
-                <DashboardCard
-                  title="Não realizados"
-                  value={schedulesPending}
-                  variant="orange"
-                />
+                <DashboardCard title="Não realizados" value={0} variant="orange" />
               </div>
             </Card>
           </div>
