@@ -1,10 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Router from './core/config/routes/Routes';
-
 import 'react-toastify/dist/ReactToastify.min.css';
 import { AuthProvider } from './core/context/AuthContext';
-import { SchedulesProvider } from './core/context/SchedulesContext';
 
 function App() {
   return (
@@ -17,9 +15,7 @@ function App() {
       />
       <BrowserRouter>
         <AuthProvider>
-          <SchedulesProvider>
-            <Router />
-          </SchedulesProvider>
+          <Router />
         </AuthProvider>
       </BrowserRouter>
     </main>

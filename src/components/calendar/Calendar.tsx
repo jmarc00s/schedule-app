@@ -1,61 +1,43 @@
-import React, { ReactNode, useState } from 'react';
-import Button from './Button';
-import Card from './Card';
+import { ReactNode, useMemo } from 'react';
+import Card from '../Card';
 import {
   addDays,
   addWeeks,
   format,
-  getDaysInMonth,
   getWeeksInMonth,
   isSameMonth,
-  lastDayOfWeek,
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import classNames from 'classnames';
+import { ScheduleModel } from 'src/core/models/schedule.model';
+import CalendarEvent from './CalendarEvent';
+import CalendarRow from './CalendarRow';
+import { weekDays } from './week-days.const';
 
-interface WeekDay {
-  name: string;
-  shortName: string;
+interface CalendarProps {
+  schedules: ScheduleModel[];
 }
 
-const weekDays: WeekDay[] = [
-  {
-    name: 'Domingo',
-    shortName: 'Dom',
-  },
-  {
-    name: 'Segunda',
-    shortName: 'Seg',
-  },
-  {
-    name: 'Terça',
-    shortName: 'Ter',
-  },
-  {
-    name: 'Quarta',
-    shortName: 'Qua',
-  },
-  {
-    name: 'Quinta',
-    shortName: 'Qui',
-  },
-  {
-    name: 'Sexta',
-    shortName: 'Sex',
-  },
-  {
-    name: 'Sábado',
-    shortName: 'Sáb',
-  },
-];
-
-const Calendar = () => {
+const Calendar = ({ schedules }: CalendarProps) => {
   const currentDate = new Date();
   const monthYear = format(currentDate, 'MMMM yyyy', { locale: ptBR });
   const weeksInMonth = getWeeksInMonth(currentDate);
   const firstDayOfMonth = startOfMonth(currentDate);
+
+  const schedulesInMonth = useMemo(
+    () =>
+      schedules.filter(({ date }) => {
+        const month = Number(date.substring(3, 5)) - 1;
+        return currentDate.getMonth() === month;
+      }),
+    [schedules]
+  );
+
+  function createEventTitle(schedule: ScheduleModel) {
+    return `${schedule.time} - ${schedule.service?.description}`;
+  }
 
   function renderWeeks() {
     let rows: ReactNode[] = [];
@@ -79,16 +61,25 @@ const Calendar = () => {
           <th
             className={classNames(
               thClasses,
-              `hover:bg-gray-100 transition-all duration-75 cursor-pointer`,
+              `hover:bg-gray-100 transition-all duration-75`,
               day === 0 && 'border-l'
             )}
           >
-            {format(date, 'dd')}
+            <div className="flex flex-col justify-start h-full">
+              <span className="text-right">{format(date, 'd')}</span>
+              <div>
+                {schedulesInMonth
+                  .filter((schedule) => schedule.date === format(date, 'dd/MM/yyyy'))
+                  .map((schedule) => (
+                    <CalendarEvent title={createEventTitle(schedule)} />
+                  ))}
+              </div>
+            </div>
           </th>
         );
       }
 
-      rows = [...rows, <tr className="border-b">{days}</tr>];
+      rows = [...rows, <CalendarRow>{days}</CalendarRow>];
     }
 
     return <>{rows}</>;
@@ -99,7 +90,6 @@ const Calendar = () => {
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
           <span className="text-lg font-bold text-gray-600 capitalize">{monthYear}</span>
-          <Button color="Dark indigo" label="Adicionar horário" />
         </div>
         <table className="w-full">
           <thead>

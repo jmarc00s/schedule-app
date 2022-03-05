@@ -9,7 +9,7 @@ import { ScheduleModel } from '../core/models/schedule.model';
 import DashboardCard from 'src/components/dashboard/DashboardCard';
 import Card from 'src/components/Card';
 import { EStatusSchedule } from 'src/core/enum/status-schedule.enum';
-import Calendar from 'src/components/Calendar';
+import Calendar from 'src/components/calendar/Calendar';
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -80,7 +80,7 @@ const Home = () => {
               </div>
             </Card>
           </div> */}
-          <Calendar />
+          <Calendar schedules={schedules} />
         </div>
         <div className="flex-1">
           <ScheduleCard schedules={nextSchedules} />

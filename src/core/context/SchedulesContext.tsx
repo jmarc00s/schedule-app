@@ -29,7 +29,7 @@ export function SchedulesProvider({ children }: SchedulesContextProviderProps) {
 
   async function fetchSchedules(page: number = 1, limit: number = 10) {
     const response = await requestWithResponse({
-      url: `/schedules?_page=${page}&_limit=${limit}`,
+      url: `/schedules?_sort=id&_order=desc&_page=${page}&_limit=${limit}`,
       method: 'GET',
     });
 
