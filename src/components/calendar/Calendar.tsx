@@ -66,8 +66,8 @@ const Calendar = ({ schedules }: CalendarProps) => {
             )}
           >
             <div className="flex flex-col justify-start h-full">
-              <span className="text-right">{format(date, 'd')}</span>
-              <div>
+              <span className="text-right pr-1">{format(date, 'd')}</span>
+              <div className="flex flex-col gap-0.5">
                 {schedulesInMonth
                   .filter((schedule) => schedule.date === format(date, 'dd/MM/yyyy'))
                   .map((schedule) => (

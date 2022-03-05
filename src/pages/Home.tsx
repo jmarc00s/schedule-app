@@ -56,9 +56,9 @@ const Home = () => {
   return (
     <>
       <PageHeader title="Início" />
-      <section className="flex lg:flex-row flex-col gap-3">
+      <div className="flex lg:flex-row flex-col gap-3">
         <div className="w-2/3 flex flex-col gap-3">
-          {/* <div className="w-full">
+          <div className="w-full">
             <Card title="Atendimentos">
               <div className="flex gap-10">
                 <DashboardCard title="Realizados" value={0} variant="blue" />
@@ -79,13 +79,13 @@ const Home = () => {
                 />
               </div>
             </Card>
-          </div> */}
+          </div>
           <Calendar schedules={schedules} />
         </div>
         <div className="flex-1">
           <ScheduleCard schedules={nextSchedules} />
         </div>
-      </section>
+      </div>
       <FabButton icon={IconPlusSm} onClick={() => setOpenModal(true)} />
       <AddScheduleDialog open={openModal} setOpen={setOpenModal} onClose={getSchedules} />
     </>
