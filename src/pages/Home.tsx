@@ -10,6 +10,7 @@ import DashboardCard from 'src/components/dashboard/DashboardCard';
 import Card from 'src/components/Card';
 import { EStatusSchedule } from 'src/core/enum/status-schedule.enum';
 import Calendar from 'src/components/calendar/Calendar';
+import { parse } from 'date-fns';
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -44,13 +45,15 @@ const Home = () => {
   const nextSchedules = useMemo(() => {
     const currentDate = new Date();
 
-    return schedules.filter(({ date }) => {
-      const day = Number(date.substring(0, 2));
-      const month = Number(date.substring(3, 5)) - 1;
-      const year = Number(date.substring(6, 10));
-
-      return new Date(year, month, day) >= currentDate;
-    });
+    return schedules
+      .filter(({ date }) => parse(date, 'dd/MM/yyyy', new Date()) >= currentDate)
+      .sort((a, b) => {
+        const aDate = parse(`${a.date} ${a.time}`, 'dd/MM/yyyy HH:mm', new Date());
+        const bDate = parse(`${b.date} ${b.time}`, 'dd/MM/yyyy HH:mm', new Date());
+        if (aDate > bDate) return 1;
+        if (aDate < bDate) return -1;
+        return 0;
+      });
   }, [schedules]);
 
   return (
