@@ -70,6 +70,11 @@ const Calendar = ({ schedules }: CalendarProps) => {
               <div className="flex flex-col gap-0.5">
                 {schedulesInMonth
                   .filter((schedule) => schedule.date === format(date, 'dd/MM/yyyy'))
+                  .sort((a, b) => {
+                    if (a.time > b.time) return 1;
+                    if (a.time < b.time) return -1;
+                    return 0;
+                  })
                   .map((schedule) => (
                     <CalendarEvent title={createEventTitle(schedule)} />
                   ))}
