@@ -36,7 +36,11 @@ const Calendar = ({ schedules }: CalendarProps) => {
   );
 
   function createEventTitle(schedule: ScheduleModel) {
-    return `${schedule.time} - ${schedule.service?.description}`;
+    let serviceDescription = schedule.service?.description;
+    if (serviceDescription && serviceDescription?.length > 15) {
+      serviceDescription = serviceDescription.substring(0, 15) + '...';
+    }
+    return `${schedule.time} - ${serviceDescription}`;
   }
 
   function renderWeeks() {
