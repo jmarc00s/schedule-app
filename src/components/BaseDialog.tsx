@@ -93,7 +93,7 @@ const BaseDialog = ({
                 {title}
               </Dialog.Title>
               <div className="px-5 py-3">{children}</div>
-              <div className="flex justify-end gap-2 px-5 pb-3">
+              <div className="flex justify-end gap-2 px-5 py-3 bg-gray-100">
                 {showLoading ? 'Carregando...' : renderButtons()}
               </div>
             </div>
