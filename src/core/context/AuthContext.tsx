@@ -62,13 +62,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   function logout() {
-    const confirmation = openDialog('Deseja realmente sair da aplicação ?');
-
-    if (confirmation) {
-      setUser(undefined);
-      setIsAuthenticated(false);
-      setItem(undefined);
-    }
+    setUser(undefined);
+    setIsAuthenticated(false);
+    setItem(undefined);
   }
 
   return (
