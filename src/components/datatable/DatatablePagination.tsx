@@ -24,9 +24,11 @@ const DatatablePagination = ({ total, onPagination }: DatatablePaginationProps) 
   }
 
   return (
-    <div className="w-full bg-gray-50 sticky bottom-0">
-      <div className="flex flex-1 justify-between items-center p-2">
-        <span className="ml-4">Página {page}</span>
+    <div className="sticky bottom-0 w-full bg-white shadow">
+      <div className="flex items-center justify-between flex-1 p-2">
+        <span className="ml-4">
+          Página {page} de {totalPages}
+        </span>
         <div className="flex gap-2">
           <Button
             color="Dark indigo"
