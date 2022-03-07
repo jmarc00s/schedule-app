@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import Card from '../Card';
 import {
   addDays,
@@ -15,12 +15,15 @@ import { ScheduleModel } from 'src/core/models/schedule.model';
 import CalendarEvent from './CalendarEvent';
 import CalendarRow from './CalendarRow';
 import { weekDays } from './week-days.const';
+import CalendarEventDetailsDialog from './CalendarEventDetailsDialog';
 
 interface CalendarProps {
   schedules: ScheduleModel[];
 }
 
 const Calendar = ({ schedules }: CalendarProps) => {
+  const [selectedSchedule, setSelectedSchedule] = useState<ScheduleModel | undefined>();
+  const [openDetailsDialog, setopenDetailsDialog] = useState(false);
   const currentDate = new Date();
   const monthYear = format(currentDate, 'MMMM yyyy', { locale: ptBR });
   const weeksInMonth = getWeeksInMonth(currentDate);
@@ -70,7 +73,7 @@ const Calendar = ({ schedules }: CalendarProps) => {
             )}
           >
             <div className="flex flex-col justify-start h-full">
-              <span className="text-right pr-1">{format(date, 'd')}</span>
+              <span className="pr-1 text-right">{format(date, 'd')}</span>
               <div className="flex flex-col gap-0.5">
                 {schedulesInMonth
                   .filter((schedule) => schedule.date === format(date, 'dd/MM/yyyy'))
@@ -80,7 +83,10 @@ const Calendar = ({ schedules }: CalendarProps) => {
                     return 0;
                   })
                   .map((schedule) => (
-                    <CalendarEvent title={createEventTitle(schedule)} />
+                    <CalendarEvent
+                      onClick={() => handleEventClick(schedule)}
+                      title={createEventTitle(schedule)}
+                    />
                   ))}
               </div>
             </div>
@@ -94,6 +100,11 @@ const Calendar = ({ schedules }: CalendarProps) => {
     return <>{rows}</>;
   }
 
+  function handleEventClick(schedule: ScheduleModel) {
+    setSelectedSchedule(schedule);
+    setopenDetailsDialog(true);
+  }
+
   return (
     <Card title="Calendário">
       <section className="flex flex-col gap-8">
@@ -104,11 +115,11 @@ const Calendar = ({ schedules }: CalendarProps) => {
           <thead>
             <tr className="border-t border-b">
               {weekDays.map((day) => (
-                <th className="p-2 border-r border-l h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs text-gray-600">
-                  <span className="xl:block lg:block md:block sm:block hidden">
+                <th className="w-10 h-10 p-2 text-xs text-gray-600 border-l border-r xl:w-40 lg:w-30 md:w-30 sm:w-20 xl:text-sm">
+                  <span className="hidden xl:block lg:block md:block sm:block">
                     {day.name}
                   </span>
-                  <span className="xl:hidden lg:hidden md:hidden sm:hidden block">
+                  <span className="block xl:hidden lg:hidden md:hidden sm:hidden">
                     {day.shortName}
                   </span>
                 </th>
@@ -118,6 +129,11 @@ const Calendar = ({ schedules }: CalendarProps) => {
           <tbody>{renderWeeks()}</tbody>
         </table>
       </section>
+      <CalendarEventDetailsDialog
+        open={openDetailsDialog}
+        setOpen={setopenDetailsDialog}
+        schedule={selectedSchedule}
+      />
     </Card>
   );
 };
