@@ -4,8 +4,8 @@ import Button from './Button';
 
 export interface BaseDialogProps {
   open: boolean;
-  onClose: () => void;
   setOpen: (open: boolean) => void;
+  onClose: () => void;
   title?: string;
   children: ReactNode;
   showLoading?: boolean;
@@ -61,7 +61,7 @@ const BaseDialog = ({
         open={open}
         onClose={onClose}
       >
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="flex items-center justify-center min-h-screen">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-200"
@@ -85,7 +85,7 @@ const BaseDialog = ({
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="relative bg-white rounded-lg mx-auto my-auto w-1/3">
+            <div className="relative w-1/3 mx-auto my-auto bg-white rounded-lg">
               <Dialog.Title
                 as="h3"
                 className={`text-lg font-medium leading-6 text-white bg-indigo-800 rounded-t-lg flex items-center px-10 py-5 w-full`}
