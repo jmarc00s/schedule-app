@@ -8,7 +8,10 @@ interface IconBadgeProps {
 
 const IconBadge = ({ icon, value, onClick }: IconBadgeProps) => {
   return (
-    <div className="relative inline-block cursor-pointer" onClick={onClick}>
+    <div
+      className="relative flex items-center justify-center w-8 h-8 rounded-full cursor-pointer hover:bg-indigo-700"
+      onClick={onClick}
+    >
       {icon}
       <span
         style={{
