@@ -27,7 +27,7 @@ const SidebarMenu = () => {
           <SidebarMenuItem label="Serviços" to="/services" icon={IconClipboard} />
         </ul>
         <ul className="flex flex-col justify-end flex-1">
-          <SidebarMenuItem label="Sair" icon={IconLogout} onClick={handleLogoutClick} />
+          <SidebarMenuItem label="Sair" icon={IconLogout()} onClick={handleLogoutClick} />
         </ul>
       </nav>
       <ConfirmDialog

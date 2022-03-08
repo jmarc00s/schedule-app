@@ -76,9 +76,8 @@ const Calendar = ({ schedules }: CalendarProps) => {
               <div className="flex justify-end pb-1 pr-1">
                 <span
                   className={classNames(
-                    format(date, 'dd/MM/yyyy') === format(currentDate, 'dd/MM/yyyy')
-                      ? 'bg-indigo-800 flex items-center justify-center rounded-full w-5 h-10'
-                      : ''
+                    format(date, 'dd/MM/yyyy') === format(currentDate, 'dd/MM/yyyy') &&
+                      'bg-indigo-800 text-gray-100 flex items-center justify-center rounded-full w-5 h-5'
                   )}
                 >
                   {format(date, 'd')}
