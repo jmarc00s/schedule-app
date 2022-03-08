@@ -33,7 +33,7 @@ const DatatableBody = ({ datasource, columns, idProperty }: DatatableBodyProps) 
           case 'action':
             if (actionColumn) {
               return (
-                <td className="p-5 flex items-center">
+                <td className="flex items-center p-5">
                   {actionColumn(data[idProperty ? idProperty : 'id'], data)}
                 </td>
               );
@@ -57,7 +57,7 @@ const DatatableBody = ({ datasource, columns, idProperty }: DatatableBodyProps) 
       {datasource.map((data, index) => (
         <tr
           key={index}
-          className={`${isOdd(index) && 'bg-indigo-100'} font-light text-lg`}
+          className={`${isOdd(index) ? 'bg-indigo-100' : 'bg-white'} font-light text-lg`}
         >
           {renderTableData(data)}
         </tr>

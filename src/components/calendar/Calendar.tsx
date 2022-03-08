@@ -73,7 +73,17 @@ const Calendar = ({ schedules }: CalendarProps) => {
             )}
           >
             <div className="flex flex-col justify-start h-full">
-              <span className="pr-1 text-right">{format(date, 'd')}</span>
+              <div className="flex justify-end pb-1 pr-1">
+                <span
+                  className={classNames(
+                    format(date, 'dd/MM/yyyy') === format(currentDate, 'dd/MM/yyyy')
+                      ? 'bg-indigo-800 flex items-center justify-center rounded-full w-5 h-10'
+                      : ''
+                  )}
+                >
+                  {format(date, 'd')}
+                </span>
+              </div>
               <div className="flex flex-col gap-0.5">
                 {schedulesInMonth
                   .filter((schedule) => schedule.date === format(date, 'dd/MM/yyyy'))
