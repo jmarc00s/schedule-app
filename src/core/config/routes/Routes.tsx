@@ -12,6 +12,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 const Clients = React.lazy(() => import('../../../pages/client/Clients'));
 const ClientForm = React.lazy(() => import('../../../pages/client/ClientForm'));
+const User = React.lazy(() => import('src/pages/user'));
 
 const Router = () => {
   return (
@@ -118,6 +119,17 @@ const Router = () => {
             <ProtectedRoute>
               <React.Suspense fallback={<>...</>}>
                 <ServiceForm />
+              </React.Suspense>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute>
+              <React.Suspense fallback={<>...</>}>
+                <User />
               </React.Suspense>
             </ProtectedRoute>
           }
