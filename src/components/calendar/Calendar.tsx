@@ -60,12 +60,18 @@ const Calendar = ({ schedules }: CalendarProps) => {
         const isFirstOrLastWeek = week === 0 || week === weeksInMonth - 1;
 
         if (isFirstOrLastWeek && !isSameMonth(date, currentDate)) {
-          days.push(<th className={classNames(thClasses, day === 0 && 'border-l')}></th>);
+          days.push(
+            <th
+              key={`${week}${day}`}
+              className={classNames(thClasses, day === 0 && 'border-l')}
+            ></th>
+          );
           continue;
         }
 
         days.push(
           <th
+            key={`${week}${day}`}
             className={classNames(
               thClasses,
               `hover:bg-gray-100 transition-all duration-75`,
@@ -91,8 +97,9 @@ const Calendar = ({ schedules }: CalendarProps) => {
                     if (a.time < b.time) return -1;
                     return 0;
                   })
-                  .map((schedule) => (
+                  .map((schedule, index) => (
                     <CalendarEvent
+                      key={index}
                       onClick={() => handleEventClick(schedule)}
                       title={createEventTitle(schedule)}
                     />
@@ -103,7 +110,7 @@ const Calendar = ({ schedules }: CalendarProps) => {
         );
       }
 
-      rows = [...rows, <CalendarRow>{days}</CalendarRow>];
+      rows = [...rows, <CalendarRow key={week}>{days}</CalendarRow>];
     }
 
     return <>{rows}</>;
@@ -123,8 +130,11 @@ const Calendar = ({ schedules }: CalendarProps) => {
         <table className="w-full">
           <thead>
             <tr className="border-t border-b">
-              {weekDays.map((day) => (
-                <th className="w-10 h-10 p-2 text-xs text-gray-600 border-l border-r xl:w-40 lg:w-30 md:w-30 sm:w-20 xl:text-sm">
+              {weekDays.map((day, index) => (
+                <th
+                  key={index}
+                  className="w-10 h-10 p-2 text-xs text-gray-600 border-l border-r xl:w-40 lg:w-30 md:w-30 sm:w-20 xl:text-sm"
+                >
                   <span className="hidden xl:block lg:block md:block sm:block">
                     {day.name}
                   </span>
