@@ -29,7 +29,7 @@ const Input = ({ label, register, name, errors, validation, ...props }: InputPro
     return (
       <input
         id={name}
-        className="w-full p-4 border rounded focus:ring-indigo-600 focus:ring-2 outline-none"
+        className="w-full p-4 border rounded outline-none focus:ring-indigo-600 focus:ring-2"
         {...props}
       />
     );
@@ -39,7 +39,7 @@ const Input = ({ label, register, name, errors, validation, ...props }: InputPro
     <>
       {label?.length && (
         <label
-          className="font-medium text-base inline-block text-gray-700 "
+          className="inline-block text-base font-medium text-gray-700 "
           htmlFor={name}
         >
           {label}
@@ -48,13 +48,13 @@ const Input = ({ label, register, name, errors, validation, ...props }: InputPro
 
       {renderInput()}
       {errors?.type === 'required' && (
-        <span className="font-medium text-red-500 tracking-wide text-xs mt-1 ml-1">
+        <span className="ml-1 text-xs font-medium tracking-wide text-red-500">
           Campo obrigatório
         </span>
       )}
 
       {errors?.type === 'pattern' && (
-        <span className="font-medium text-red-500 tracking-wide text-xs mt-1 ml-1">
+        <span className="ml-1 text-xs font-medium tracking-wide text-red-500">
           Campo inválido
         </span>
       )}

@@ -51,9 +51,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
 
     if (user?.length) {
+      console.log(user);
+      const { id, name, lastname, email, imageUrl } = user[0];
       setUser(user[0]);
       setIsAuthenticated(true);
-      setItem(JSON.stringify({ username: user[0].username, email: user[0].email }));
+      setItem(JSON.stringify({ id, name, lastname, email, imageUrl }));
       return true;
     }
 
