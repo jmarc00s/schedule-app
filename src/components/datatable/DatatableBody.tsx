@@ -10,15 +10,24 @@ interface DatatableBodyProps {
 const DatatableBody = ({ datasource, columns, idProperty }: DatatableBodyProps) => {
   function renderTextColumn(
     data: any,
+    index: number,
     property?: string,
     renderText?: (element: any) => string
   ) {
     if (property) {
-      return <td className="p-5">{data[property]}</td>;
+      return (
+        <td key={index} className="p-5">
+          {data[property]}
+        </td>
+      );
     }
 
     if (renderText) {
-      return <td className="p-5">{renderText(data)}</td>;
+      return (
+        <td key={index} className="p-5">
+          {renderText(data)}
+        </td>
+      );
     }
 
     return null;
@@ -26,21 +35,27 @@ const DatatableBody = ({ datasource, columns, idProperty }: DatatableBodyProps) 
 
   function renderTableData(data: any) {
     return columns.map(
-      ({ property, type, actionElement: actionColumn, element, renderText }) => {
+      ({ property, type, actionElement: actionColumn, element, renderText }, index) => {
         switch (type) {
           case 'text':
-            return renderTextColumn(data, property, renderText);
+            return renderTextColumn(data, index, property, renderText);
           case 'action':
             if (actionColumn) {
               return (
-                <td className="flex items-center p-5">
+                <td key={index} className="flex items-center p-5">
                   {actionColumn(data[idProperty ? idProperty : 'id'], data)}
                 </td>
               );
             }
-            return <td className="p-5"></td>;
+            return <td key={index} className="p-5"></td>;
           case 'element':
-            return element && <td className="p-5">{element(data)}</td>;
+            return (
+              element && (
+                <td key={index} className="p-5">
+                  {element(data)}
+                </td>
+              )
+            );
           default:
             return null;
         }

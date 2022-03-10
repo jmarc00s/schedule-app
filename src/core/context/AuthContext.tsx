@@ -13,6 +13,7 @@ interface AuthContextProps {
   loading: boolean;
   isAuthenticated: boolean;
   user?: UserModel;
+  updateUser: (user: UserModel) => void;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -20,6 +21,7 @@ const AuthContext = createContext<AuthContextProps>({
   login: async () => false,
   logout: () => {},
   isAuthenticated: false,
+  updateUser: (user: UserModel) => {},
 });
 
 interface AuthProviderProps {
@@ -68,8 +70,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setItem(undefined);
   }
 
+  function updateUser(user: UserModel) {
+    setUser(user);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, logout, isAuthenticated, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
